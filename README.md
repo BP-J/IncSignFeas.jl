@@ -23,7 +23,7 @@ using Pkg; Pkg.add("IncSignFeas")
 using IncSignFeas
 ```
 
-The main tools used require the `julia` packages [Gurobi](https://github.com/jump-dev/Gurobi.jl), [JuMP](https://github.com/jump-dev/JuMP.jl), though some algorithms can work without these. 
+The main tools used require the `julia` packages [Gurobi](https://github.com/jump-dev/Gurobi.jl) (or any linear optimization solver such as [GLPK](https://github.com/jump-dev/GLPK.jl) or [HiGHS](https://github.com/jump-dev/HiGHS.jl) which are license-free and available in `julia`), [JuMP](https://github.com/jump-dev/JuMP.jl), though some algorithms can work without these. 
 
 ## Main principle
 
