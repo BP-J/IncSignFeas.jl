@@ -1,2 +1,3 @@
 # IncSignFeas
-Repository aimed for the Julia package with the same name, which identifies the chambers of a hyperplane arrangement.
+
+[![Build Status](https://github.com/BP-J/IncSignFeas.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/BP-J/IncSignFeas.jl/actions/workflows/CI.yml?query=branch%3Amain)
