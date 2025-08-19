@@ -28,5 +28,16 @@ The main tools used require the `julia` packages [Gurobi](https://github.com/jum
 ## Main principle
 
 An arrangement is defined by a matrix **V** of size **n x p** and a vector **t** of size **p**, and must be grouped as `[V ; t']`.
-Then, `options` defining which algorithm will be used must be defined, for instance with `options = options_from_algo(3, false)`.
-Finally, the algorithm is called with `info = isf([V ; t'], options)`. 
+The arrangement contains **p** hyperplanes defined by **{x : V[:,i]'x = t[i]}**.
+
+The code IncSignFeas (often abbreviated ISF or isf) contains a few different parameters defined as `options`, 
+the main one being the algorithm that will be used. A test example can be as follows:
+```
+Vt = [1 0 1 1 ; 0 1 1 -1 ; 0 0 1 0]
+options = options_from_algo(0, false)
+info = isf(Vt, options)
+info.s
+```
+which generates an arrangement, the options (`false` indicates the arrangement is not central), and launches the code. 
+Then, the set of sign vectors is displayed, which should be 
+`[[+1,+1,+1,+1], [+1,+1,+1,-1], [+1,+1,-1,+1], [+1,+1,-1,-1], [+1,-1,-1,+1], [+1,-1,+1,+1], [-1,+1,-1,-1], [-1,+1,+1,-1], [-1,-1,-1,+1], [-1,-1,-1,-1]]`.

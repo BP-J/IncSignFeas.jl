@@ -89,10 +89,10 @@ function isf_feas!(VS::Matrix, sv::Vector, rhs, info::Info, options::Options, va
     
     # HiGHS
     set_attribute(model, HiGHS.ComputeInfeasibilityCertificate(), false)
-    set_optimizer_attribute(model_HiGHS, "simplex_strategy", 1)     # 2 and 3 correspond to other dual simplex methods with parallelism (see the og paper of HiGHS's authors)
+    set_optimizer_attribute(model, "simplex_strategy", 1)     # 2 and 3 correspond to other dual simplex methods with parallelism (see the og paper of HiGHS's authors)
 
     # GLPK
-    # set_optimizer_attribute(model_GLPK, "meth", GLP_DUAL)
+    # set_optimizer_attribute(model, "meth", GLP_DUAL)
     
     @variable(model, xt[1:n+1])                             # dimension + 1 for the bounding variable
     @constraint(model, cons, A * xt >= b)                   # linear constraint
@@ -149,12 +149,22 @@ function isf_feas_HnH!(VS::Matrix, sv::Vector, info::Info, options::Options, val
 
     info.nb_losolve += 1
 
-    model = Model(() -> Gurobi.Optimizer(GUROBI_ENV))
-    # model = Model(GLPK.Optimizer)                         # for GLPK
+    # Since the primal-dual variant desires to use the dual simplex algorithm, we suggest primal-dual by default, though it can be easily changed by the user. 
+    ## Gurobi
+    # model = Model(() -> Gurobi.Optimizer(GUROBI_ENV))
+    # set_optimizer_attribute(model, "Method", -1)
+    # set_optimizer_attribute(model, "OutPutFlag", 0)
+
+    model = Model(options.optimizer)                        # correction JPD
     set_silent(model)                                       # avoid printings
-    set_optimizer_attribute(model, "OutPutFlag", 0)         # ?
-    set_optimizer_attribute(model, "Method", -1)            # dual simplex
-    # set_optimizer_attribute(model, "Dual", 1)             # for GLPK
+    
+    # HiGHS
+    set_attribute(model, HiGHS.ComputeInfeasibilityCertificate(), false)
+    set_optimizer_attribute(model, "simplex_strategy", 1)     # 2 and 3 correspond to other dual simplex methods with parallelism (see the og paper of HiGHS's authors)
+
+    # GLPK
+    # set_optimizer_attribute(model, "meth", GLP_DUAL)
+    
     @variable(model, xt[1:n+1])                             # dimension + 1 for the bounding variable
     @constraint(model, cons, A * xt >= b)                   # linear constraint
     @objective(model, Min, c' * xt)                         # cost = last variable, the bounding variable
