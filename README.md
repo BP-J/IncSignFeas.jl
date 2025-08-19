@@ -6,7 +6,7 @@
 
 This package uses (in most algorithms), a tree structure introduced by [Rada and Černý](https://epubs.siam.org/doi/10.1137/15M1027930). 
 Several variants of this tree algorithms are proposed, some relying on linear optimization and some on stem vectors (a variant of signed circuits of matroids).
-For additional details, see [here](https://inria.hal.science/hal-05002249). 
+For additional details, see [here](https://inria.hal.science/hal-05002249) and [here](https://bp-j.github.io/research/documentation_ISFjl_1908.pdf). 
 
 ## Package presentation
 
