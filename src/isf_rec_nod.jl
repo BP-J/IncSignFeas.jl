@@ -191,8 +191,6 @@ function isf_rec_nod!(V::Matrix, svec::Vector{Int}, perm::Vector{Int}, type::Str
         end
 
         if !isc#isempty(isc) # other one also feasible
-            info.nb_sv_detect += 1
-
             if p > nvp
                 isf_rec_nod!(V, svec, perm, type, info, options, values)
                 
@@ -201,6 +199,8 @@ function isf_rec_nod!(V::Matrix, svec::Vector{Int}, perm::Vector{Int}, type::Str
                 info.ns += 1
                 options.s && isf_storing!(svec, p, perm, info)
             end
+        else
+            info.nb_sv_detect += 1
         end
     end
 end
@@ -378,7 +378,6 @@ function isf_rec_nod_HnH!(Vt::Matrix, svec::Vector{Int}, perm::Vector{Int}, HnH_
         info.cput_cover += tok()
 
         if !covering_index # the recurrence is continued
-            info.nb_sv_detect += 1
             if p > nvp
                 isf_rec_nod_HnH!(Vt, svec, perm, HnH_info, symmetry_info, info, options, values)
                 info.flag > 0 && return info
@@ -405,6 +404,7 @@ function isf_rec_nod_HnH!(Vt::Matrix, svec::Vector{Int}, perm::Vector{Int}, HnH_
             end
 
         else
+            info.nb_sv_detect += 1
             if detail == "asym" # means the current sign vector is infeasible even in dimension n+1, so the recursion is stopped
 
                 # recursion is fully stopped, nothing to do

@@ -77,8 +77,9 @@ function isf_first_H!(V::Matrix, info::Info, options::Options, values::Values)
     info.stems_asym_init = ElasticMatrix{Int64}(undef, p, 0)
 
     if options.sv >= 3      # 1 means only a few from QR, 2 means these few + some from dual variables of infeasible LOPs along the way
-
-        isf_choose_wechelon_option!(V, Q, R, info, options)
+        if options.wechelon_svsprod_choice == false
+            isf_choose_wechelon_option!(V, Q, R, info, options)
+        end
         @suppress begin
             tick()
         end
@@ -125,7 +126,7 @@ function isf_first_H!(V::Matrix, info::Info, options::Options, values::Values)
         continuation = false
         isf_nod_lazy_H!(p, info)
     else
-        if mod(options.algorithm, 8) >= 6
+        if mod(options.algorithm, 8) >= 6 && options.wechelon_svsprod_choice == false
             isf_choose_svsprods_option!(V, info, options)
         end
         

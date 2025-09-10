@@ -52,6 +52,7 @@ mutable struct Options
     tol_coordinates::Float64
     tol_nonzero_q::Float64
     wechelon::Bool
+    wechelon_svsprod_choice::Bool
     withd::Bool
 end
 
@@ -107,7 +108,7 @@ Initialization of options to default values.
 """
 function isf_get_options()
     ## creates the options from the matrix Vt alone
-    options = Options(0, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, true)
+    options = Options(0, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
     return options
 end
 

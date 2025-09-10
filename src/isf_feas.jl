@@ -41,10 +41,10 @@ Verification of the inequalities system through linear optimization.
 A version covers the mixed (HnH) algorithm, this version covers the rest.
 
 First, the elements of the linear system are created, then the 
-properties of Gurobi are set, and finally the result is checked. 
-Gurobi has (apparently) the LP convention that the dual 
+properties of the solver are set, and finally the result is checked. 
+(Gurobi has (apparently) the LP convention that the dual 
 variables have the same sign as contraints: for this 
-reason, the constraints have been put in the other sense.
+reason, the constraints have been put in the other sense.)
 
 The HnH version is done separately for convenience.
 """

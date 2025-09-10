@@ -77,8 +77,9 @@ function isf_first_HnH!(Vt::Matrix, info::Info, options::Options, values::Values
     info.stems_asym_init = ElasticMatrix{Int64}(undef, p, 0)
     
     if options.sv >= 3
-
-        isf_choose_wechelon_option!(Vt, Q, R, info, options)
+        if options.wechelon_svsprod_choice == false
+            isf_choose_wechelon_option!(Vt, Q, R, info, options)
+        end
         @suppress begin
             tick()
         end
@@ -120,7 +121,7 @@ function isf_first_HnH!(Vt::Matrix, info::Info, options::Options, values::Values
         end
     end
 
-    if mod(options.algorithm, 8) >= 6
+    if mod(options.algorithm, 8) >= 6 && options.wechelon_svsprod_choice == false
         isf_choose_svsprods_option!(Vt, info, options)
     end
 

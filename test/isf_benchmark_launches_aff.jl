@@ -44,41 +44,41 @@ list_instances = [list_instances_rand ; list_instances_2d ; list_instances_srand
 
 function benchmark_affine(list_instances)
 
-    options_0 = Options(0, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_1 = Options(1, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_2 = Options(2, 0, true, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_3 = Options(3, 3, true, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_4 = Options(4, 3, true, HiGHS.Optimizer, false, true, 1, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_4r = Options(4, 3, true, HiGHS.Optimizer, false, true, 1, true, false, 100000*eps(), 1000*eps(), false, true)    # unused, no recursive covering when very few stem vectors 
-    options_5 = Options(5, 3, true, HiGHS.Optimizer, false, true, 2, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_5r = Options(5, 3, true, HiGHS.Optimizer, false, true, 2, true, false, 100000*eps(), 1000*eps(), false, true)    # unused, no recursive covering when very few stem vectors 
-    options_6 = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, true)    # w often faster
-    options_6r = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), false, true)    # w often faster
-    options_6w = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), true, true)
-    options_6wr = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), true, true)
-    options_7 = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, false)  # w often faster
-    options_7r = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), false, false)  # w often faster
-    options_7w = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), true, false)
-    options_7wr = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), true, false)
+    options_0 = Options(0, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_1 = Options(1, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_2 = Options(2, 0, true, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_3 = Options(3, 3, true, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_4 = Options(4, 3, true, HiGHS.Optimizer, false, true, 1, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_4r = Options(4, 3, true, HiGHS.Optimizer, false, true, 1, true, false, 100000*eps(), 1000*eps(), false, false, true)    # unused, no recursive covering when very few stem vectors 
+    options_5 = Options(5, 3, true, HiGHS.Optimizer, false, true, 2, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_5r = Options(5, 3, true, HiGHS.Optimizer, false, true, 2, true, false, 100000*eps(), 1000*eps(), false, false, true)    # unused, no recursive covering when very few stem vectors 
+    options_6 = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, false, true)    # w often faster
+    options_6r = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), false, false, true)    # w often faster
+    options_6w = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), true, false, true)
+    options_6wr = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), true, false, true)
+    options_7 = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, false, false)  # w often faster
+    options_7r = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), false, false, false)  # w often faster
+    options_7w = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), true, false, false)
+    options_7wr = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), true, false, false)
 
-    options_8 = Options(8, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_9 = Options(9, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_10 = Options(10, 0, true, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_11 = Options(11, 3, true, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_12 = Options(12, 3, true, HiGHS.Optimizer, false, true, 1, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_12r = Options(12, 3, true, HiGHS.Optimizer, false, true, 1, true, false, 100000*eps(), 1000*eps(), false, true)  # unused, no recursive covering when very few stem vectors 
-    options_13 = Options(13, 3, true, HiGHS.Optimizer, false, true, 2, false, false, 100000*eps(), 1000*eps(), false, true)
-    options_13r = Options(13, 3, true, HiGHS.Optimizer, false, true, 2, true, false, 100000*eps(), 1000*eps(), false, true)  # unused, no recursive covering when very few stem vectors 
-    options_14 = Options(14, 3, true, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, true)  # w often faster
-    options_14r = Options(14, 3, true, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), false, true)  # w often faster
-    options_14w = Options(14, 3, true, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), true, true)
-    options_14wr = Options(14, 3, true, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), true, true)
-    options_15 = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, false)# w often faster
-    options_15r = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), false, false)# w often faster
-    options_15w = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), true, false)
-    options_15wr = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), true, false)
+    options_8 = Options(8, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_9 = Options(9, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_10 = Options(10, 0, true, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_11 = Options(11, 3, true, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_12 = Options(12, 3, true, HiGHS.Optimizer, false, true, 1, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_12r = Options(12, 3, true, HiGHS.Optimizer, false, true, 1, true, false, 100000*eps(), 1000*eps(), false, false, true)  # unused, no recursive covering when very few stem vectors 
+    options_13 = Options(13, 3, true, HiGHS.Optimizer, false, true, 2, false, false, 100000*eps(), 1000*eps(), false, false, true)
+    options_13r = Options(13, 3, true, HiGHS.Optimizer, false, true, 2, true, false, 100000*eps(), 1000*eps(), false, false, true)  # unused, no recursive covering when very few stem vectors 
+    options_14 = Options(14, 3, true, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, false, true)  # w often faster
+    options_14r = Options(14, 3, true, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), false, false, true)  # w often faster
+    options_14w = Options(14, 3, true, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), true, false, true)
+    options_14wr = Options(14, 3, true, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), true, false, true)
+    options_15 = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, false, false)# w often faster
+    options_15r = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), false, false, false)# w often faster
+    options_15w = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), true, false, false)
+    options_15wr = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), true, false, false)
 
-    options_l = Options(7, 0, false, HiGHS.Optimizer, false, true, 4, true, false, 100000*eps(), 1000*eps(), true, false)    # no tree structure
+    options_l = Options(7, 0, false, HiGHS.Optimizer, false, true, 4, true, false, 100000*eps(), 1000*eps(), true, false, false)    # no tree structure
 
     algos = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 
@@ -86,7 +86,7 @@ function benchmark_affine(list_instances)
                                     syms = Int64[], asyms = Int64[], dupli_syms = Int64[], dupli_asyms = Int64[], sv_time = Float64[], prop_time_sv = Float64[],
                                     checks = Int64[], detect_ratio = Float64[], cover_time = Float64[], avg_cover = Float64[], prop_time_cover = Float64[])
 
-    DataFrames_vector = [DataFrame_instance for i in 1:length(list_instances)]
+    DataFrames_vector = [copy(DataFrame_instance) for i in 1:length(list_instances)]
     # DataFrames_vector_HnH = [DataFrame_instance for i in 1:length(list_instances)]
 
     DataFrames_times = DataFrame(Name = String[], RC = Float64[], RC_HnH = Float64[], RC_ratio_HnH = Float64[],

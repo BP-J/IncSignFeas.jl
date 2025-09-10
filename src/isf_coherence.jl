@@ -33,7 +33,7 @@
 `isf_coherence!(options)`
 Checks the coherence of the options, puts flag to 1 if not. 
 """
-function isf_coherence!(options::Options, values::Values)
+function isf_coherence!(info::Info, options::Options, values::Values)
 
     # symmetry Checks
     if options.symmetry && options.algorithm >= 8

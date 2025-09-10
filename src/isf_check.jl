@@ -83,10 +83,28 @@ function isf_check(options::Options, values::Values, info::Info)
         println("\n### isf_check: options.symmetry is not a boolean\n")
     end
 
+    # checking options.tol_coordinates
+    if ~(options.tol_coordinates isa Float64)
+        info.flag = values.fail_argument
+        println("\n### isf_check: options.tol_coordinates is not a Float\n")
+    end
+
+    # checking options.tol_nonzero_q
+    if ~(options.tol_nonzero_q isa Float64)
+        info.flag = values.fail_argument
+        println("\n### isf_check: options.tol_nonzero_q is not a Float\n")
+    end
+
     # checking options.wechelon
     if !(options.wechelon isa Bool)
         info.flag = values.fail_argument
         println("\n### isf_check: options.wechelon should be an boolean\n")
+    end
+    
+    # checking options.wechelon_svsprod_choice
+    if !(options.wechelon_svsprod_choice isa Bool)
+        info.flag = values.fail_argument
+        println("\n### isf_check: options.wechelon_svsprod_choice should be an boolean\n")
     end
 
     # checking options.withd

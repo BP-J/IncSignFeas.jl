@@ -215,21 +215,32 @@ function isf(Vt::Matrix, options::Options)
     if info.flag > 1
         return info
     end
+    
+    isf_coherence!(info, options, values)
+    if info.flag > 0
+        return Info
+    end
 
     ## slightly different depending on options.symmetry
     ## it is assumed that, if options.symmetry = true, the user
     ## checked it and doesn't use a matrix whose last row is the τ_i
     ## if options.symmetry = false, the last row is checked
-    if !options.symmetry
+    # if !options.symmetry
+    #     nn, p = size(Vt)
+    #     n = nn-1
+    #     Ttemp = Vt[nn, :] # the right-hand sides to be checked
+    #     if norm(Ttemp) < 100*eps()
+    #         options.symmetry = true
+    #         Vt = Vt[1:n,:]          # the last row is nearly 0 and thus removed
+    #     end
+    # else
+    #     n, p = size(Vt)
+    # end
+    if options.symmetry
+        n, p = size(Vt)
+    else
         nn, p = size(Vt)
         n = nn-1
-        Ttemp = Vt[nn, :] # the right-hand sides to be checked
-        if norm(Ttemp) < 100*eps()
-            options.symmetry == true
-            Vt = Vt[1:n,:]          # the last row is nearly 0 and thus removed
-        end
-    else
-        n, p = size(Vt)
     end
 
     # dimensions checked
