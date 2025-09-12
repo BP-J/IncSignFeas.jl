@@ -80,8 +80,8 @@ include("isf_first_H.jl")                   # initialization
 include("isf_first_nH.jl")                  # initialization
 include("isf_first_HnH.jl")                 # initialization
 include("isf_first_rc2018.jl")              # initialization
-include("isf_generation_affine.jl")         # creating affine instances
-include("isf_generation_linear.jl")         # creating linear instances
+include("isf_generation_affine.jl") # creating affine instances
+include("isf_generation_linear.jl") # creating linear instances
 include("isf_nod_lazy_completion.jl")       # recursive completion of the stems
 include("isf_nod_lazy.jl")                  # lazy AD5 method
 include("isf_noncolin.jl")                  # removing the duplicate vectors in the data
