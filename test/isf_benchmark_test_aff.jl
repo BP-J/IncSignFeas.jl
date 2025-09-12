@@ -35,15 +35,21 @@ using DelimitedFiles
 using Printf
 
 # types of instances
-list_instances_rand = ["R_8_2", "R_8_4", "R_9_4", "R_10_5", "R_11_4", "R_12_6", "R_13_5", "R_14_7", "R_15_7", "R_16_8", "R_17_9"]
-list_instances_2d = ["degen2d_4", "degen2d_5", "degen2d_6", "degen2d_7", "degen2d_8"]
-list_instances_srand = ["srand_8_20_2", "srand_8_20_4", "srand_8_20_6"]
-list_instances_perm = ["perm_5", "perm_6", "perm_7", "perm_8"]
-list_instances_ratio = ["ratio_3_7", "ratio_3_9", "ratio_4_7", "ratio_4_9", "ratio_5_7", "ratio_5_9", "ratio_6_7", "ratio_6_9", "ratio_7_7", "ratio_7_9"]
+instances_rand = ["rand_2_8", "rand_4_8", "rand_4_9", "rand_5_10", "rand_4_11", "rand_6_12", "rand_5_13", "rand_7_14", "rand_7_15", "rand_8_16", "rand_9_17"]
+instances_2d = ["2d_4", "2d_5", "2d_6", "2d_7", "2d_8"]
+instances_srand = ["srand_8_20_2", "srand_8_20_4", "srand_8_20_6"]
+instances_perm = ["perm_5", "perm_6", "perm_7", "perm_8"]
+instances_ratio = ["ratio_3_20_07", "ratio_3_20_09", "ratio_4_20_07", "ratio_4_20_09", "ratio_5_20_07", "ratio_5_20_09", "ratio_6_20_07", "ratio_6_20_09", "ratio_7_20_07", "ratio_7_20_09"]
+instances_threshold = ["threshold_4", "threshold_5", "threshold_6"]
+instances_resonance = ["resonance_4", "resonance_5"] # , "resonance_6" # resonance_6 is excluded "a priori" since the computation of its stem vectors takes too long. 
+instances_demicube = ["demicube_5", "demicube_6", "demicube_7"]
+instances_crosspoly = ["crosspoly_6", "crosspoly_7", "crosspoly_8", "crosspoly_9", "crosspoly_10", "crosspoly_11", "crosspoly_12", "crosspoly_13"]
 
 # example with all instances
-list_instances = [list_instances_rand ; list_instances_2d ; list_instances_srand ; list_instances_perm ; list_instances_ratio]
+# list_instances = [instances_rand ; instances_2d ; instances_srand ; instances_perm ; instances_ratio ; instances_threshold ; instances_resonance ; instances_demicube ; instances_crosspoly]
+list_instances = [instances_perm ; instances_ratio ; instances_threshold ; instances_resonance ; instances_demicube ; instances_crosspoly]
 # list_instances = ["R_8_2"]
+# list_instances = ["threshold_3"]
 
 # explicit possible options
 options_0 = Options(0, 0, false, HiGHS.Optimizer, false, true, 0, false, false, 100000*eps(), 1000*eps(), false, false, true)
@@ -80,17 +86,48 @@ options_15r = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, true, false
 options_15w = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), true, false, false)
 options_15wr = Options(15, 0, false, HiGHS.Optimizer, false, true, 3, true, false, 100000*eps(), 1000*eps(), true, false, false)
 
-options_l = Options(7, 0, false, HiGHS.Optimizer, false, true, 4, true, false, 100000*eps(), 1000*eps(), true, false, false)    # no tree structure
+options_0_s = Options(0, 0, false, HiGHS.Optimizer, false, true, 0, false, true, 100000*eps(), 1000*eps(), false, true, true)
+options_1_s = Options(1, 0, false, HiGHS.Optimizer, false, true, 0, false, true, 100000*eps(), 1000*eps(), false, true, true)
+options_2_s = Options(2, 0, true, HiGHS.Optimizer, false, true, 0, false, true, 100000*eps(), 1000*eps(), false, true, true)
+options_3_s = Options(3, 3, true, HiGHS.Optimizer, false, true, 0, false, true, 100000*eps(), 1000*eps(), false, true, true)
+options_4_s = Options(4, 3, true, HiGHS.Optimizer, false, true, 1, false, true, 100000*eps(), 1000*eps(), false, true, true)
+options_4r_s = Options(4, 3, true, HiGHS.Optimizer, false, true, 1, true, true, 100000*eps(), 1000*eps(), false, true, true)    # unused, no recursive covering when very few stem vectors 
+options_5_s = Options(5, 3, true, HiGHS.Optimizer, false, true, 2, false, true, 100000*eps(), 1000*eps(), false, true, true)
+options_5r_s = Options(5, 3, true, HiGHS.Optimizer, false, true, 2, true, true, 100000*eps(), 1000*eps(), false, true, true)    # unused, no recursive covering when very few stem vectors 
+options_6_s = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, false, true, 100000*eps(), 1000*eps(), false, true, true)    # w often faster
+options_6r_s = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, true, true, 100000*eps(), 1000*eps(), false, true, true)    # w often faster
+options_6w_s = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, false, true, 100000*eps(), 1000*eps(), true, true, true)
+options_6wr_s = Options(6, 3, true, HiGHS.Optimizer, false, true, 3, true, true, 100000*eps(), 1000*eps(), true, true, true)
+options_7_s = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, false, true, 100000*eps(), 1000*eps(), false, true, false)  # w often faster
+options_7r_s = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, true, true, 100000*eps(), 1000*eps(), false, true, false)  # w often faster
+options_7w_s = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, false, true, 100000*eps(), 1000*eps(), true, true, false)
+options_7wr_s = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, true, true, 100000*eps(), 1000*eps(), true, true, false)
+
+options_l = Options(7, 0, false, HiGHS.Optimizer, false, true, 4, true, false, 100000*eps(), 1000*eps(), true, true, false)    # no tree structure
 
 # example with all the tree algorithms
 algos=["0","1","2","3","4","4r","5","5r","6","6r","6wr","6w","7","7r","7wr","7w","8","9","10","11","12","12r","13","13r","14","14r","14wr","14w","15","15r","15wr","15w"] #,"l"
-
+algos_s = ["0s", "1s", "2s", "3s", "4s", "4rs", "5s", "5rs", "6s", "6rs", "6ws", "6wrs", "7s", "7rs", "7ws", "7wrs"]
 # Depending on how many algorithms and how many instances, the rest of the code may be very long. 
 
 for name in list_instances
 
-    fullname = "affine_data/data_aff_" * name * ".txt"
-    matrice = readdlm(fullname)
+    if name[1:4] == "thre" || name[1:4] == "reso" || name[1:4] == "demi" || name[1:4] == "cros"
+        fullname = "linear_data/" * name * ".txt"
+        matrice = readdlm(fullname)
+        n, p = size(matrice)
+        matrice = [matrice ; zeros(Int,1,p)]
+    else
+        fullname = "affine_data/data_aff_" * name * ".txt"
+        matrice = readdlm(fullname)
+    end
+
+    if name[1:4] == "thre" || name[1:4] == "reso" || name[1:4] == "demi" || name[1:4] == "cros" || name[1:4] == "perm"
+        sym = true
+    else
+        sym = false
+    end
+
     println(name,"\n")
 
     # This part computes the different information for each algorithm on a given instance. 
@@ -186,8 +223,7 @@ for name in list_instances
     
     if "10" in algos
         info_10 = isf(matrice, options_10)
-
-    println("fin 10,", info_10.cput_total)
+        println("fin 10,", info_10.cput_total)
     end
     
     if "11" in algos
@@ -260,7 +296,94 @@ for name in list_instances
         println("fin l,", info_l.cput_total)
     end
 
+    if sym
+        if name[1:4] == "perm"
+            fullname = "linear_data/" * "data_" * name * ".txt"
+            matrice = readdlm(fullname)
+        else
+            matrice = matrice[1:n,:]
+        end
 
+        if "0s" in algos_s
+            info_0_s = isf(matrice, options_0_s)
+            println("fin 0_s,", info_0_s.cput_total)
+        end
+        
+        if "1s" in algos_s
+            info_1_s = isf(matrice, options_1_s)
+            println("fin 1_s,", info_1_s.cput_total)
+        end
+
+        if "2s" in algos_s
+            info_2_s = isf(matrice, options_2_s)
+            println("fin 2_s,", info_2_s.cput_total)
+        end
+
+        if "3s" in algos_s
+            info_3_s = isf(matrice, options_3_s)
+            println("fin 3_s,", info_3_s.cput_total)
+        end
+
+        if "4s" in algos_s
+            info_4_s = isf(matrice, options_4_s)
+            println("fin 4_r,", info_4_s.cput_total)
+        end
+
+        if "4rs" in algos_s
+            info_4r_s = isf(matrice, options_4r_s)
+            println("fin 4r_s,", info_4r_s.cput_total)
+        end
+
+        if "5s" in algos_s
+            info_5_s = isf(matrice, options_5_s)
+            println("fin 5_s,", info_5_s.cput_total)
+        end
+
+        if "5rs" in algos_s
+            info_5r_s = isf(matrice, options_5r_s)
+            println("fin 5r_s,", info_5r_s.cput_total)
+        end
+
+        if "6s" in algos_s
+            info_6_s = isf(matrice, options_6_s)
+            println("fin 6_s,", info_6_s.cput_total)
+        end
+
+        if "6rs" in algos_s
+            info_6r_s = isf(matrice, options_6r_s)
+            println("fin 6r_s,", info_6r_s.cput_total)
+        end
+
+        if "6ws" in algos_s
+            info_6w_s = isf(matrice, options_6w_s)
+            println("fin 6w_s,", info_6w_s.cput_total)
+        end
+
+        if "6wrs" in algos_s
+            info_6wr_s = isf(matrice, options_6wr_s)
+            println("fin 6wr_s,", info_6wr_s.cput_total)
+        end
+
+        if "7s" in algos_s
+            info_7_s = isf(matrice, options_7_s)
+            println("fin 7_s,", info_7_s.cput_total)
+        end
+
+        if "7rs" in algos_s
+            info_7r_s = isf(matrice, options_7r_s)
+            println("fin 7r_s,", info_7r_s.cput_total)
+        end
+
+        if "7ws" in algos_s
+            info_7w_s = isf(matrice, options_7w_s)
+            println("fin 7w_s,", info_7w_s.cput_total)
+        end
+
+        if "7wrs" in algos_s
+            info_7wr_s = isf(matrice, options_7wr_s)
+            println("fin 7wr_s,", info_7wr_s.cput_total)
+        end
+    end
     ##################################################
     ##################################################
     ##################################################
@@ -268,6 +391,10 @@ for name in list_instances
 
     # quick verification of the number of chambers
     println(info_0.ns, " ", info_1.ns, " ", info_2.ns, " ", info_3.ns, " ", info_4.ns, " ", info_4r.ns, " ", info_5.ns, " ", info_5r.ns, " ", info_6.ns, " ", info_6r.ns, " ", info_6wr.ns, " ", info_6w.ns, " ", info_7.ns, " ", info_7r.ns, " ", info_7wr.ns, " ", info_7w.ns, " ", info_8.ns, " ", info_9.ns, " ", info_10.ns, " ", info_11.ns, " ", info_12.ns, " ", info_12r.ns, " ", info_13.ns, " ", info_13r.ns, " ", info_14.ns, " ", info_14r.ns, " ", info_14wr.ns, " ", info_14w.ns, " ", info_15.ns, " ", info_15r.ns, " ", info_15wr.ns, " ", info_15w.ns)
+
+    if sym
+        println(info_0_s.ns, " ", info_1_s.ns, " ", info_2_s.ns, " ", info_3_s.ns, " ", info_4_s.ns, " ", info_4r_s.ns, " ", info_5_s.ns, " ", info_5r_s.ns, " ", info_6_s.ns, " ", info_6r_s.ns, " ", info_6wr_s.ns, " ", info_6w_s.ns, " ", info_7_s.ns, " ", info_7r_s.ns, " ", info_7wr_s.ns, " ", info_7w_s.ns)
+    end
 
     # comparisons ; the order is to try comparing the most similar sets (which should accelerate the comparison)
     # to adjust if not all algorithms are to be compared
@@ -329,7 +456,7 @@ for name in list_instances
     end
 
     if info_4.s != info_4r.s
-        println("$(name) a un problème aux algorithmes 4?")
+        println("$(name) has an issue between algorithms 4?")
     else
         println("there is equality between 4 and 4r")
     end
@@ -349,7 +476,7 @@ for name in list_instances
     end
 
     if info_5.s != info_5r.s
-        println("$(name) a un problème aux algorithmes 5?")
+        println("$(name) has an issue between algorithms 5?")
     else
         println("there is equality between 5 and 5r")
     end
@@ -369,7 +496,7 @@ for name in list_instances
     end
 
     if (info_6.s != info_6r.s) || (info_6.s != info_6wr.s) || (info_6.s != info_6w.s) 
-        println("$(name) a un problème aux algorithmes 6?")
+        println("$(name) has an issue between algorithms 6?")
     else
         println("there is equality between 6, 6r, 6rw, 6w")
     end
@@ -389,7 +516,7 @@ for name in list_instances
     end
 
     if (info_7.s != info_7r.s) || (info_7.s != info_7wr.s) || (info_7.s != info_7w.s) 
-        println("$(name) a un problème aux algorithmes 7?")
+        println("$(name) has an issue between algorithms 7?")
     else
         println("there is equality between 7, 7r, 7rw, 7w")
     end
@@ -451,7 +578,7 @@ for name in list_instances
     end
 
     if info_12.s != info_12r.s
-        println("$(name) a un problème aux algorithmes 12?")
+        println("$(name) has an issue between algorithms 12?")
     else
         println("there is equality between 12 and 12r")
     end
@@ -471,7 +598,7 @@ for name in list_instances
     end
 
     if info_13.s != info_13r.s
-        println("$(name) a un problème aux algorithmes 13?")
+        println("$(name) has an issue between algorithms 13?")
     else
         println("there is equality between 13 and 13r")
     end
@@ -491,7 +618,7 @@ for name in list_instances
     end
 
     if (info_14.s != info_14r.s) || (info_14.s != info_14wr.s) || (info_14.s != info_14w.s) 
-        println("$(name) a un problème aux algorithmes 14?")
+        println("$(name) has an issue between algorithms 14?")
     else
         println("there is equality between 14, 14r, 14rw, 14w")
     end
@@ -511,7 +638,7 @@ for name in list_instances
     end
 
     if (info_15.s != info_15r.s) || (info_15.s != info_15wr.s) || (info_15.s != info_15w.s) 
-        println("$(name) a un problème aux algorithmes 15?")
+        println("$(name) has an issue between algorithms 15?")
     else
         println("there is equality between 15, 15r, 15rw, 15w")
     end
@@ -528,6 +655,145 @@ for name in list_instances
             println(length(sd))
             println("$(name) has an issue between 7 and 15")
         end
+    end
+
+    if sym
+        if info_0.ns != info_0_s.ns
+            # println(length(setdiff(info_0.s, info_0_s.s)))
+            # println(length(setdiff(info_0_s.s, info_0.s)))
+            println("$(name) has an issue between 0 and 0s")
+        else
+            sd = setdiff(info_0_s.s, info_0.s)
+            if length(sd) == 0
+                println("there is equality between 0 and 0_s")
+            else
+                println(length(sd))
+                println("$(name) has an issue between 0 and 0_s")
+            end
+        end
+
+        if info_0_s.ns != info_1_s.ns
+            # println(length(setdiff(info_0_s.s, info_1_s.s)))
+            # println(length(setdiff(info_1_s.s, info_0_s.s)))
+            println("$(name) has an issue between 0 and 1")
+        else
+            sd = setdiff(info_0_s.s, info_1_s.s)
+            if length(sd) == 0
+                println("there is equality between 0 and 1")
+            else
+                println(length(sd))
+                println("$(name) has an issue between 0 and 1")
+            end
+        end
+
+        if info_1_s.ns != info_2_s.ns
+            # println(length(setdiff(info_1_s.s, info_2_s.s)))
+            # println(length(setdiff(info_2_s.s, info_1_s.s)))
+            println("$(name) has an issue between 1 and 2")
+        else
+            sd = setdiff(info_1_s.s, info_2_s.s)
+            if length(sd) == 0
+                println("there is equality between 1 and 2")
+            else
+                println(length(sd))
+                println("$(name) has an issue between 1 and 2")
+            end
+        end
+
+        if info_2_s.ns != info_3_s.ns
+            # println(length(setdiff(info_2_s.s, info_3_s.s)))
+            # println(length(setdiff(info_3_s.s, info_2_s.s)))
+            println("$(name) has an issue between 2 and 3")
+        else
+            sd = setdiff(info_2_s.s, info_3_s.s)
+            if length(sd) == 0
+                println("there is equality between 2 and 3")
+            else
+                println(length(sd))
+                println("$(name) has an issue between 2 and 3")
+            end
+        end
+
+        if info_3_s.ns != info_4_s.ns
+            # println(length(setdiff(info_3_s.s, info_4_s.s)))
+            # println(length(setdiff(info_4_s.s, info_3_s.s)))
+            println("$(name) has an issue between 3 and 4")
+        else
+            sd = setdiff(info_3_s.s, info_4_s.s)
+            if length(sd) == 0
+                println("there is equality between 3 and 4")
+            else
+                println(length(sd))
+                println("$(name) has an issue between 3 and 4")
+            end
+        end
+
+        if info_4_s.s != info_4r_s.s
+            println("$(name) has an issue between algorithms 4?")
+        else
+            println("there is equality between 4 and 4r")
+        end
+
+        if info_4_s.ns != info_5_s.ns
+            # println(length(setdiff(info_4_s.s, info_5_s.s)))
+            # println(length(setdiff(info_5_s.s, info_4_s.s)))
+            println("$(name) has an issue between 4 and 5")
+        else
+            sd = setdiff(info_4_s.s, info_5_s.s)
+            if length(sd) == 0
+                println("there is equality between 4 and 5")
+            else
+                println(length(sd))
+                println("$(name) has an issue between 4 and 5")
+            end
+        end
+
+        if info_5_s.s != info_5r_s.s
+            println("$(name) has an issue between algorithms 5?")
+        else
+            println("there is equality between 5 and 5r")
+        end
+
+        if info_5_s.ns != info_6_s.ns
+            # println(length(setdiff(info_5_s.s, info_6_s.s)))
+            # println(length(setdiff(info_6_s.s, info_5_s.s)))
+            println("$(name) has an issue between 5 and 6")
+        else
+            sd = setdiff(info_5_s.s, info_6_s.s)
+            if length(sd) == 0
+                println("there is equality between 5 and 6")
+            else
+                println(length(sd))
+                println("$(name) has an issue between 5 and 6")
+            end
+        end
+
+        if (info_6_s.s != info_6r_s.s) || (info_6_s.s != info_6wr_s.s) || (info_6_s.s != info_6w_s.s) 
+            println("$(name) has an issue between algorithms 6?")
+        else
+            println("there is equality between 6, 6r, 6rw, 6w")
+        end
+
+        if info_6_s.ns != info_7_s.ns
+            # println(length(setdiff(info_6_s.s, info_7_s.s)))
+            # println(length(setdiff(info_7_s.s, info_6_s.s)))
+            println("$(name) has an issue between 6 and 7")
+        else
+            sd = setdiff(info_6_s.s, info_7_s.s)
+            if length(sd) == 0
+                println("there is equality between 6 and 7")
+            else
+                println(length(sd))
+                println("$(name) has an issue between 6 and 7")
+            end
+        end
+
+        if (info_7_s.s != info_7r_s.s) || (info_7_s.s != info_7wr_s.s) || (info_7_s.s != info_7w_s.s) 
+            println("$(name) has an issue between algorithms 7?")
+        else
+            println("there is equality between 7, 7r, 7rw, 7w")
+        end
+
     end
 
     println("Done")

@@ -232,3 +232,27 @@ function symmetric_count(svs)
     end
     return count
 end
+
+function number_figures(v)
+    sd = 0
+    if v < 0.1
+        sd = 1
+    elseif v < 1
+        sd = 2
+    elseif v < 10
+        sd = 3
+    elseif v < 100
+        sd = 4
+    elseif v < 1000
+        sd = 5
+    elseif v < 10000
+        sd = 6
+    elseif v < 100000
+        sd = 7
+    end
+    return sd
+end
+
+function conv_nb_fig(value)
+    return round(value, sigdigits=number_figures(value))
+end
