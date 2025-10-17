@@ -34,18 +34,18 @@
 using DelimitedFiles
 using Printf
 
-# list_instances_rand = ["rand_2_8", "rand_4_8", "rand_4_9", "rand_5_10", "rand_4_11", "rand_6_12", "rand_5_13", "rand_7_14", "rand_7_15", "rand_8_16", "rand_9_17"]
-# list_instances_2d = ["2d_4", "2d_5", "2d_6", "2d_7", "2d_8"]
-# list_instances_srand = ["srand_8_20_2", "srand_8_20_4", "srand_8_20_6"]
-# list_instances_perm = ["perm_5", "perm_6", "perm_7", "perm_8"]
-# list_instances_ratio = ["ratio_3_20_07", "ratio_3_20_09", "ratio_4_20_07", "ratio_4_20_09", "ratio_5_20_07", "ratio_5_20_09", "ratio_6_20_07", "ratio_6_20_09", "ratio_7_20_07", "ratio_7_20_09"]
+list_rand = ["rand_2_8", "rand_4_8", "rand_4_9", "rand_5_10", "rand_4_11", "rand_6_12", "rand_5_13", "rand_7_14", "rand_7_15", "rand_8_16", "rand_9_17"]
+list_2d = ["2d_4", "2d_5", "2d_6", "2d_7", "2d_8"]
+list_srand = ["srand_8_20_2", "srand_8_20_4", "srand_8_20_6"]
+list_perm = ["perm_5", "perm_6", "perm_7", "perm_8"]
+list_ratio = ["ratio_3_20_07", "ratio_3_20_09", "ratio_4_20_07", "ratio_4_20_09", "ratio_5_20_07", "ratio_5_20_09", "ratio_6_20_07", "ratio_6_20_09", "ratio_7_20_07", "ratio_7_20_09"]
 
-# list_instances = [list_instances_rand ; list_instances_2d ; list_instances_srand ; list_instances_perm ; list_instances_ratio]
+list_threshold = ["threshold_4", "threshold_5", "threshold_6"]
+list_resonance = ["resonance_4", "resonance_5", "resonance_6"]
+list_demicube = ["demicube_5", "demicube_6", "demicube_7"]
+list_crosspoly = ["crosspoly_6", "crosspoly_7", "crosspoly_8", "crosspoly_9", "crosspoly_10", "crosspoly_11", "crosspoly_12", "crosspoly_13"]
 
-# list_instances_threshold = ["threshold_4", "threshold_5", "threshold_6"]
-# list_instances_resonance = ["resonance_4", "resonance_5", "resonance_6"]
-# list_instances_demicube = ["demicube_5", "demicube_6", "demicube_7"]
-# list_instances_crosspoly = ["crosspoly_6", "crosspoly_7", "crosspoly_8", "crosspoly_9", "crosspoly_10", "crosspoly_11", "crosspoly_12", "crosspoly_13"]
+list_total = [list_rand ; list_2d ; list_srand ; list_perm ; list_ratio ; list_threshold ; list_resonance ; list_demicube ; list_crosspoly]
 
 function benchmark_affine(list_instances)
 
@@ -196,10 +196,6 @@ function benchmark_affine(list_instances)
             prop_cover_0 /= count_0
 
             push!(DataFrames_vector[DF_index], [time_0, FLP_0, ILP_0, 1.0, time_LP_0, time_LP_0 / (FLP_0 + ILP_0), prop_LP_0, syms_0, asyms_0, dupli_syms_0, dupli_asyms_0, time_sv_0, prop_sv_0, checks_0, detect_ratio_0, time_cover_0, 0, prop_cover_0])
-            # println("Average time for $(count_0) trials, time_0 = $(avg_time_0), time_LP_0 = $(avg_LP_0)")
-            # string_avg_0 = @sprintf "%.2E" avg_time_0
-            # string_avg_LP_0 = @sprintf "%.2E" avg_LP_0
-            # string_ppt_LP_0 = @sprintf "%.2f" avg_LP_0 / avg_time_0
         end
 
         ##################################################
@@ -231,13 +227,6 @@ function benchmark_affine(list_instances)
             prop_cover_1 /= count_1
 
             push!(DataFrames_vector[DF_index], [time_1, FLP_1, ILP_1, (FLP_0+ILP_0)/(FLP_1+ILP_1) , time_LP_1, time_LP_1 / (FLP_1 + ILP_1), prop_LP_1, syms_1, asyms_1, dupli_syms_1, dupli_asyms_1, time_sv_1, prop_sv_1, checks_1, detect_ratio_1, time_cover_1, 0, prop_cover_1])
-            # println("Average time for $(count_1) trials, time_1 = $(avg_time_1), time_LP_1 = $(avg_LP_1)")
-            # string_avg_1 = @sprintf "%.2E" avg_time_1
-            # string_avg_LP_1 = @sprintf "%.2E" avg_LP_1
-            # string_ppt_LP_1 = @sprintf "%.2f" avg_LP_1 / avg_time_1
-            # string_ratio_1 = @sprintf "%.2f" avg_time_0 / avg_time_1
-            # string_ratio_LP_1 = @sprintf "%.2f" avg_LP_0 / avg_LP_1
-            # string_ratio_ppt_LP_1 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_1 / avg_time_1)
         end
 
         ##################################################
@@ -269,13 +258,6 @@ function benchmark_affine(list_instances)
             prop_cover_2 /= count_2
             
             push!(DataFrames_vector[DF_index], [time_2, FLP_2, ILP_2, (FLP_0+ILP_0)/(FLP_2+ILP_2) , time_LP_2, time_LP_2 / (FLP_2 + ILP_2), prop_LP_2, syms_2, asyms_2, dupli_syms_2, dupli_asyms_2, time_sv_2, prop_sv_2, checks_2, detect_ratio_2, time_cover_2, 0, prop_cover_2])
-            # println("Average time for $(count_2) trials, time_2 = $(avg_time_2), time_LP_2 = $(avg_LP_2)")
-            # string_avg_2 = @sprintf "%.2E" avg_time_2
-            # string_avg_LP_2 = @sprintf "%.2E" avg_LP_2
-            # string_ppt_LP_2 = @sprintf "%.2f" avg_LP_2 / avg_time_2
-            # string_ratio_2 = @sprintf "%.2f" avg_time_0 / avg_time_2
-            # string_ratio_LP_2 = @sprintf "%.2f" avg_LP_0 / avg_LP_2
-            # string_ratio_ppt_LP_2 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_2 / avg_time_2)
         end
 
         ##################################################
@@ -307,13 +289,6 @@ function benchmark_affine(list_instances)
             prop_cover_3 /= count_3
             
             push!(DataFrames_vector[DF_index], [time_3, FLP_3, ILP_3, (FLP_0+ILP_0)/(FLP_3+ILP_3) , time_LP_3, time_LP_3 / (FLP_3 + ILP_3), prop_LP_3, syms_3, asyms_3, dupli_syms_3, dupli_asyms_3, time_sv_3, prop_sv_3, checks_3, detect_ratio_3, time_cover_3, 0, prop_cover_3])
-            # println("Average time for $(count_3) trials, time_3 = $(avg_time_3), time_LP_3 = $(avg_LP_3)")
-            # string_avg_3 = @sprintf "%.2E" avg_time_3
-            # string_avg_LP_3 = @sprintf "%.2E" avg_LP_3
-            # string_ppt_LP_3 = @sprintf "%.2f" avg_LP_3 / avg_time_3
-            # string_ratio_3 = @sprintf "%.2f" avg_time_0 / avg_time_3
-            # string_ratio_LP_3 = @sprintf "%.2f" avg_LP_0 / avg_LP_3
-            # string_ratio_ppt_LP_3 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_3 / avg_time_3)
         end
 
         ##################################################
@@ -345,17 +320,6 @@ function benchmark_affine(list_instances)
             prop_cover_4 /= count_4
             
             push!(DataFrames_vector[DF_index], [time_4, FLP_4, ILP_4, (FLP_0+ILP_0)/(FLP_4+ILP_4) , time_LP_4, time_LP_4 / (FLP_4 + ILP_4), prop_LP_4, syms_4, asyms_4, dupli_syms_4, dupli_asyms_4, time_sv_4, prop_sv_4, checks_4, detect_ratio_4, time_cover_4, time_cover_4 / checks_4, prop_cover_4])
-            # println("Average time for $(count_4) trials, time_4 = $(avg_time_4), time_LP_4 = $(avg_LP_4)")
-            # string_avg_4 = @sprintf "%.2E" avg_time_4
-            # string_avg_LP_4 = @sprintf "%.2E" avg_LP_4
-            # string_ppt_LP_4 = @sprintf "%.2E" avg_LP_4 / avg_time_4
-            # string_sv_4 = @sprintf "%.2E" avg_sv_4
-            # string_cv_4 = @sprintf "%.2E" avg_cv_4
-            # string_ppt_sv_4 = @sprintf "%.2f" avg_sv_4 / avg_time_4
-            # string_ppt_cv_4 = @sprintf "%.2f" avg_cv_4 / avg_time_4
-            # string_ratio_4 = @sprintf "%.2f" avg_time_0 / avg_time_4
-            # string_ratio_LP_4 = @sprintf "%.2f" avg_LP_0 / avg_LP_4
-            # string_ratio_ppt_LP_4 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_4 / avg_time_4)
         end
         
         ##################################################
@@ -387,17 +351,6 @@ function benchmark_affine(list_instances)
             prop_cover_5 /= count_5
             
             push!(DataFrames_vector[DF_index], [time_5, FLP_5, ILP_5, (FLP_0+ILP_0)/(FLP_5+ILP_5) , time_LP_5, time_LP_5 / (FLP_5 + ILP_5), prop_LP_5, syms_5, asyms_5, dupli_syms_5, dupli_asyms_5, time_sv_5, prop_sv_5, checks_5, detect_ratio_5, time_cover_5, time_cover_5 / checks_5, prop_cover_5])
-            # println("Average time for $(count_5) trials, time_5 = $(avg_time_5), time_LP_5 = $(avg_LP_5)")
-            # string_avg_5 = @sprintf "%.2E" avg_time_5
-            # string_avg_LP_5 = @sprintf "%.2E" avg_LP_5
-            # string_ppt_LP_5 = @sprintf "%.2E" avg_LP_5 / avg_time_5
-            # string_sv_5 = @sprintf "%.2E" avg_sv_5
-            # string_cv_5 = @sprintf "%.2E" avg_cv_5
-            # string_ppt_sv_5 = @sprintf "%.2f" avg_sv_5 / avg_time_5
-            # string_ppt_cv_5 = @sprintf "%.2f" avg_cv_5 / avg_time_5
-            # string_ratio_5 = @sprintf "%.2f" avg_time_0 / avg_time_5
-            # string_ratio_LP_5 = @sprintf "%.2f" avg_LP_0 / avg_LP_5
-            # string_ratio_ppt_LP_5 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_5 / avg_time_5)
         end
 
         ##################################################
@@ -434,17 +387,6 @@ function benchmark_affine(list_instances)
             prop_cover_6 /= count_6
             
             push!(DataFrames_vector[DF_index], [time_6, FLP_6, ILP_6, (FLP_0+ILP_0)/(FLP_6+ILP_6) , time_LP_6, time_LP_6 / (FLP_6 + ILP_6), prop_LP_6, syms_6, asyms_6, dupli_syms_6, dupli_asyms_6, time_sv_6, prop_sv_6, checks_6, detect_ratio_6, time_cover_6, time_cover_6 / checks_6, prop_cover_6])
-            # println("Average time for $(count_6) trials, time_6 = $(avg_time_6), time_LP_6 = $(avg_LP_6)")
-            # string_avg_6 = @sprintf "%.2E" avg_time_6
-            # string_avg_LP_6 = @sprintf "%.2E" avg_LP_6
-            # string_ppt_LP_6 = @sprintf "%.2E" avg_LP_6 / avg_time_6
-            # string_sv_6 = @sprintf "%.2E" avg_sv_6
-            # string_cv_6 = @sprintf "%.2E" avg_cv_6
-            # string_ppt_sv_6 = @sprintf "%.2f" avg_sv_6 / avg_time_6
-            # string_ppt_cv_6 = @sprintf "%.2f" avg_cv_6 / avg_time_6
-            # string_ratio_6 = @sprintf "%.2f" avg_time_0 / avg_time_6
-            # string_ratio_LP_6 = @sprintf "%.2f" avg_LP_0 / avg_LP_6
-            # string_ratio_ppt_LP_6 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_6 / avg_time_6)
         end
 
         ##################################################
@@ -481,17 +423,6 @@ function benchmark_affine(list_instances)
             prop_cover_7 /= count_7
             
             push!(DataFrames_vector[DF_index], [time_7, FLP_7, ILP_7, 0, time_LP_7, 0, prop_LP_7, syms_7, asyms_7, dupli_syms_7, dupli_asyms_7, time_sv_7, prop_sv_7, checks_7, detect_ratio_7, time_cover_7, time_cover_7 / checks_7, prop_cover_7])
-            # println("Average time for $(count_7) trials, time_7 = $(avg_time_7), time_LP_7 = $(avg_LP_7)")
-            # string_avg_7 = @sprintf "%.2E" avg_time_7
-            # string_avg_LP_7 = @sprintf "%.2E" avg_LP_7
-            # string_ppt_LP_7 = @sprintf "%.2E" avg_LP_7 / avg_time_7
-            # string_sv_7 = @sprintf "%.2E" avg_sv_7
-            # string_cv_7 = @sprintf "%.2E" avg_cv_7
-            # string_ppt_sv_7 = @sprintf "%.2f" avg_sv_7 / avg_time_7
-            # string_ppt_cv_7 = @sprintf "%.2f" avg_cv_7 / avg_time_7
-            # string_ratio_7 = @sprintf "%.2f" avg_time_0 / avg_time_7
-            # string_ratio_LP_7 = @sprintf "%.2f" avg_LP_0 / avg_LP_7
-            # string_ratio_ppt_LP_7 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_7 / avg_time_7)
         end
 
         ##################################################
@@ -523,13 +454,6 @@ function benchmark_affine(list_instances)
             prop_cover_8 /= count_8
             
             push!(DataFrames_vector[DF_index], [time_8, FLP_8, ILP_8, (FLP_0+ILP_0)/(FLP_8+ILP_8) , time_LP_8, time_LP_8 / (FLP_8 + ILP_8), prop_LP_8, syms_8, asyms_8, dupli_syms_8, dupli_asyms_8, time_sv_8, prop_sv_8, checks_8, detect_ratio_8, time_cover_8, 0, prop_cover_8])
-            # println("Average time for $(count_8) trials, time_8 = $(avg_time_8), time_LP_8 = $(avg_LP_8)")
-            # string_avg_8 = @sprintf "%.2E" avg_time_8
-            # string_avg_LP_8 = @sprintf "%.2E" avg_LP_8
-            # string_ppt_LP_8 = @sprintf "%.2f" avg_LP_8 / avg_time_8
-            # string_ratio_8 = @sprintf "%.2f" avg_time_0 / avg_time_8
-            # string_ratio_LP_8 = @sprintf "%.2f" avg_LP_0 / avg_LP_8
-            # string_ratio_ppt_LP_8 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_8 / avg_time_8)
         end
 
         ##################################################
@@ -561,13 +485,6 @@ function benchmark_affine(list_instances)
             prop_cover_9 /= count_9
             
             push!(DataFrames_vector[DF_index], [time_9, FLP_9, ILP_9, (FLP_0+ILP_0)/(FLP_9+ILP_9) , time_LP_9, time_LP_9 / (FLP_9 + ILP_9), prop_LP_9, syms_9, asyms_9, dupli_syms_9, dupli_asyms_9, time_sv_9, prop_sv_9, checks_9, detect_ratio_9, time_cover_9, 0, prop_cover_9])
-            # println("Average time for $(count_9) trials, time_9 = $(avg_time_9), time_LP_9 = $(avg_LP_9)")
-            # string_avg_9 = @sprintf "%.2E" avg_time_9
-            # string_avg_LP_9 = @sprintf "%.2E" avg_LP_9
-            # string_ppt_LP_9 = @sprintf "%.2f" avg_LP_9 / avg_time_9
-            # string_ratio_9 = @sprintf "%.2f" avg_time_0 / avg_time_9
-            # string_ratio_LP_9 = @sprintf "%.2f" avg_LP_0 / avg_LP_9
-            # string_ratio_ppt_LP_9 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_9 / avg_time_9)
         end
 
         ##################################################
@@ -599,13 +516,6 @@ function benchmark_affine(list_instances)
             prop_cover_10 /= count_10
             
             push!(DataFrames_vector[DF_index], [time_10, FLP_10, ILP_10, (FLP_0+ILP_0)/(FLP_10+ILP_10) , time_LP_10, time_LP_10 / (FLP_10 + ILP_10), prop_LP_10, syms_10, asyms_10, dupli_syms_10, dupli_asyms_10, time_sv_10, prop_sv_10, checks_10, detect_ratio_10, time_cover_10, 0, prop_cover_10])
-            # println("Average time for $(count_10) trials, time_10 = $(avg_time_10), time_LP_10 = $(avg_LP_10)")
-            # string_avg_10 = @sprintf "%.2E" avg_time_10
-            # string_avg_LP_10 = @sprintf "%.2E" avg_LP_10
-            # string_ppt_LP_10 = @sprintf "%.2f" avg_LP_10 / avg_time_10
-            # string_ratio_10 = @sprintf "%.2f" avg_time_0 / avg_time_10
-            # string_ratio_LP_10 = @sprintf "%.2f" avg_LP_0 / avg_LP_10
-            # string_ratio_ppt_LP_10 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_10 / avg_time_10)
         end
 
         ##################################################
@@ -637,13 +547,6 @@ function benchmark_affine(list_instances)
             prop_cover_11 /= count_11
             
             push!(DataFrames_vector[DF_index], [time_11, FLP_11, ILP_11, (FLP_0+ILP_0)/(FLP_11+ILP_11) , time_LP_11, time_LP_11 / (FLP_11 + ILP_11), prop_LP_11, syms_11, asyms_11, dupli_syms_11, dupli_asyms_11, time_sv_11, prop_sv_11, checks_11, detect_ratio_11, time_cover_11, 0, prop_cover_11])
-            # println("Average time for $(count_11) trials, time_11 = $(avg_time_11), time_LP_11 = $(avg_LP_11)")
-            # string_avg_11 = @sprintf "%.2E" avg_time_11
-            # string_avg_LP_11 = @sprintf "%.2E" avg_LP_11
-            # string_ppt_LP_11 = @sprintf "%.2f" avg_LP_11 / avg_time_11
-            # string_ratio_11 = @sprintf "%.2f" avg_time_0 / avg_time_11
-            # string_ratio_LP_11 = @sprintf "%.2f" avg_LP_0 / avg_LP_11
-            # string_ratio_ppt_LP_11 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_11 / avg_time_11)
         end
 
         ##################################################
@@ -675,21 +578,6 @@ function benchmark_affine(list_instances)
             prop_cover_12 /= count_12
             
             push!(DataFrames_vector[DF_index], [time_12, FLP_12, ILP_12, (FLP_0+ILP_0)/(FLP_12+ILP_12) , time_LP_12, time_LP_12 / (FLP_12 + ILP_12), prop_LP_12, syms_12, asyms_12, dupli_syms_12, dupli_asyms_12, time_sv_12, prop_sv_12, checks_12, detect_ratio_12, time_cover_12, time_cover_12 / checks_12, prop_cover_12])
-            # println("Average time for $(count_12) trials, time_12 = $(avg_time_12), time_LP_12 = $(avg_LP_12)")
-            # string_avg_12 = @sprintf "%.2E" avg_time_12
-            # string_avg_LP_12 = @sprintf "%.2E" avg_LP_12
-            # string_ppt_LP_12 = @sprintf "%.2E" avg_LP_12 / avg_time_12
-            # string_sv_12 = @sprintf "%.2E" avg_sv_12
-            # string_cv_12 = @sprintf "%.2E" avg_cv_12
-            # string_ppt_sv_12 = @sprintf "%.2f" avg_sv_12 / avg_time_12
-            # string_ppt_cv_12 = @sprintf "%.2f" avg_cv_12 / avg_time_12
-            # string_ratio_12 = @sprintf "%.2f" avg_time_0 / avg_time_12
-            # string_ratio_LP_12 = @sprintf "%.2f" avg_LP_0 / avg_LP_12
-            # string_ratio_ppt_LP_12 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_12 / avg_time_12)
-            # string_ratio_sv_12 = @sprintf "%.2f" avg_sv_4 / avg_sv_12
-            # string_ratio_ppt_sv_12 = @sprintf "%.2f" (avg_sv_4 / avg_time_4) / (avg_sv_12 / avg_time_12)
-            # string_ratio_cv_12 = @sprintf "%.2f" avg_cv_4 / avg_cv_12
-            # string_ratio_ppt_cv_12 = @sprintf "%.2f" (avg_cv_4 / avg_time_4) / (avg_cv_12 / avg_time_12)
         end
 
         ##################################################
@@ -721,21 +609,6 @@ function benchmark_affine(list_instances)
             prop_cover_13 /= count_13
             
             push!(DataFrames_vector[DF_index], [time_13, FLP_13, ILP_13, (FLP_0+ILP_0)/(FLP_13+ILP_13) , time_LP_13, time_LP_13 / (FLP_13 + ILP_13), prop_LP_13, syms_13, asyms_13, dupli_syms_13, dupli_asyms_13, time_sv_13, prop_sv_13, checks_13, detect_ratio_13, time_cover_13, time_cover_13 / checks_13, prop_cover_13])
-            # println("Average time for $(count_13) trials, time_13 = $(avg_time_13), time_LP_13 = $(avg_LP_13)")
-            # string_avg_13 = @sprintf "%.2E" avg_time_13
-            # string_avg_LP_13 = @sprintf "%.2E" avg_LP_13
-            # string_ppt_LP_13 = @sprintf "%.2E" avg_LP_13 / avg_time_13
-            # string_sv_13 = @sprintf "%.2E" avg_sv_13
-            # string_cv_13 = @sprintf "%.2E" avg_cv_13
-            # string_ppt_sv_13 = @sprintf "%.2f" avg_sv_13 / avg_time_13
-            # string_ppt_cv_13 = @sprintf "%.2f" avg_cv_13 / avg_time_13
-            # string_ratio_13 = @sprintf "%.2f" avg_time_0 / avg_time_13
-            # string_ratio_LP_13 = @sprintf "%.2f" avg_LP_0 / avg_LP_13
-            # string_ratio_ppt_LP_13 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_13 / avg_time_13)
-            # string_ratio_sv_13 = @sprintf "%.2f" avg_sv_5 / avg_sv_13
-            # string_ratio_ppt_sv_13 = @sprintf "%.2f" (avg_sv_5 / avg_time_5) / (avg_sv_13 / avg_time_13)
-            # string_ratio_cv_13 = @sprintf "%.2f" avg_cv_5 / avg_cv_13
-            # string_ratio_ppt_cv_13 = @sprintf "%.2f" (avg_cv_5 / avg_time_5) / (avg_cv_13 / avg_time_13)
         end
 
         ##################################################
@@ -772,21 +645,6 @@ function benchmark_affine(list_instances)
             prop_cover_14 /= count_14
             
             push!(DataFrames_vector[DF_index], [time_14, FLP_14, ILP_14, (FLP_0+ILP_0)/(FLP_14+ILP_14) , time_LP_14, time_LP_14 / (FLP_14 + ILP_14), prop_LP_14, syms_14, asyms_14, dupli_syms_14, dupli_asyms_14, time_sv_14, prop_sv_14, checks_14, detect_ratio_14, time_cover_14, time_cover_14 / checks_14, prop_cover_14])
-            # println("Average time for $(count_14) trials, time_14 = $(avg_time_14), time_LP_14 = $(avg_LP_14)")
-            # string_avg_14 = @sprintf "%.2E" avg_time_14
-            # string_avg_LP_14 = @sprintf "%.2E" avg_LP_14
-            # string_ppt_LP_14 = @sprintf "%.2E" avg_LP_14 / avg_time_14
-            # string_sv_14 = @sprintf "%.2E" avg_sv_14
-            # string_cv_14 = @sprintf "%.2E" avg_cv_14
-            # string_ppt_sv_14 = @sprintf "%.2f" avg_sv_14 / avg_time_14
-            # string_ppt_cv_14 = @sprintf "%.2f" avg_cv_14 / avg_time_14
-            # string_ratio_14 = @sprintf "%.2f" avg_time_0 / avg_time_14
-            # string_ratio_LP_14 = @sprintf "%.2f" avg_LP_0 / avg_LP_14
-            # string_ratio_ppt_LP_14 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_14 / avg_time_14)
-            # string_ratio_sv_14 = @sprintf "%.2f" avg_sv_6 / avg_sv_14
-            # string_ratio_ppt_sv_14 = @sprintf "%.2f" (avg_sv_6 / avg_time_6) / (avg_sv_14 / avg_time_14)
-            # string_ratio_cv_14 = @sprintf "%.2f" avg_cv_6 / avg_cv_14
-            # string_ratio_ppt_cv_14 = @sprintf "%.2f" (avg_cv_6 / avg_time_6) / (avg_cv_14 / avg_time_14)
         end
 
         ##################################################
@@ -823,21 +681,6 @@ function benchmark_affine(list_instances)
             prop_cover_15 /= count_15
             
             push!(DataFrames_vector[DF_index], [time_15, FLP_15, ILP_15, 0, time_LP_15, 0, prop_LP_15, syms_15, asyms_15, dupli_syms_15, dupli_asyms_15, time_sv_15, prop_sv_15, checks_15, detect_ratio_15, time_cover_15, time_cover_15 / checks_15, prop_cover_15])
-            # println("Average time for $(count_15) trials, time_15 = $(avg_time_15), time_LP_15 = $(avg_LP_15)")
-            # string_avg_15 = @sprintf "%.2E" avg_time_15
-            # string_avg_LP_15 = @sprintf "%.2E" avg_LP_15
-            # string_ppt_LP_15 = @sprintf "%.2E" avg_LP_15 / avg_time_15
-            # string_sv_15 = @sprintf "%.2E" avg_sv_15
-            # string_cv_15 = @sprintf "%.2E" avg_cv_15
-            # string_ppt_sv_15 = @sprintf "%.2f" avg_sv_15 / avg_time_15
-            # string_ppt_cv_15 = @sprintf "%.2f" avg_cv_15 / avg_time_15
-            # string_ratio_15 = @sprintf "%.2f" avg_time_0 / avg_time_15
-            # string_ratio_LP_15 = @sprintf "%.2f" avg_LP_0 / avg_LP_15
-            # string_ratio_ppt_LP_15 = @sprintf "%.2f" (avg_LP_0 / avg_time_0) / (avg_LP_15 / avg_time_15)
-            # string_ratio_sv_15 = @sprintf "%.2f" avg_sv_7 / avg_sv_15
-            # string_ratio_ppt_sv_15 = @sprintf "%.2f" (avg_sv_7 / avg_time_7) / (avg_sv_15 / avg_time_15)
-            # string_ratio_cv_15 = @sprintf "%.2f" avg_cv_7 / avg_cv_15
-            # string_ratio_ppt_cv_15 = @sprintf "%.2f" (avg_cv_7 / avg_time_7) / (avg_cv_15 / avg_time_15)
         end
 
         if sym
@@ -875,10 +718,6 @@ function benchmark_affine(list_instances)
                 prop_cover_0s /= count_0s
 
                 push!(DataFrames_vector[DF_index], [time_0s, FLP_0s, ILP_0s, 1.0, time_LP_0s, time_LP_0s / (FLP_0s + ILP_0s), prop_LP_0s, syms_0s, asyms_0s, dupli_syms_0s, dupli_asyms_0s, time_sv_0s, prop_sv_0s, checks_0s, detect_ratio_0s, time_cover_0s, 0, prop_cover_0s])
-                # println("Average time for $(count_0s) trials, time_0s = $(avg_time_0s), time_LP_0s = $(avg_LP_0s)")
-                # string_avg_0s = @sprintf "%.2E" avg_time_0s
-                # string_avg_LP_0s = @sprintf "%.2E" avg_LP_0s
-                # string_ppt_LP_0s = @sprintf "%.2f" avg_LP_0s / avg_time_0s
             end
 
             ##################################################
@@ -910,13 +749,6 @@ function benchmark_affine(list_instances)
                 prop_cover_1s /= count_1s
 
                 push!(DataFrames_vector[DF_index], [time_1s, FLP_1s, ILP_1s, (FLP_0s+ILP_0s)/(FLP_1s+ILP_1s) , time_LP_1s, time_LP_1s / (FLP_1s + ILP_1s), prop_LP_1s, syms_1s, asyms_1s, dupli_syms_1s, dupli_asyms_1s, time_sv_1s, prop_sv_1s, checks_1s, detect_ratio_1s, time_cover_1s, 0, prop_cover_1s])
-                # println("Average time for $(count_1s) trials, time_1s = $(avg_time_1s), time_LP_1s = $(avg_LP_1s)")
-                # string_avg_1s = @sprintf "%.2E" avg_time_1s
-                # string_avg_LP_1s = @sprintf "%.2E" avg_LP_1s
-                # string_ppt_LP_1s = @sprintf "%.2f" avg_LP_1s / avg_time_1s
-                # string_ratio_1s = @sprintf "%.2f" avg_time_0s / avg_time_1s
-                # string_ratio_LP_1s = @sprintf "%.2f" avg_LP_0s / avg_LP_1s
-                # string_ratio_ppt_LP_1s = @sprintf "%.2f" (avg_LP_0s / avg_time_0s) / (avg_LP_1s / avg_time_1s)
             end
 
             ##################################################
@@ -948,13 +780,6 @@ function benchmark_affine(list_instances)
                 prop_cover_2s /= count_2s
                 
                 push!(DataFrames_vector[DF_index], [time_2s, FLP_2s, ILP_2s, (FLP_0s+ILP_0s)/(FLP_2s+ILP_2s) , time_LP_2s, time_LP_2s / (FLP_2s + ILP_2s), prop_LP_2s, syms_2s, asyms_2s, dupli_syms_2s, dupli_asyms_2s, time_sv_2s, prop_sv_2s, checks_2s, detect_ratio_2s, time_cover_2s, 0, prop_cover_2s])
-                # println("Average time for $(count_2s) trials, time_2s = $(avg_time_2s), time_LP_2s = $(avg_LP_2s)")
-                # string_avg_2s = @sprintf "%.2E" avg_time_2s
-                # string_avg_LP_2s = @sprintf "%.2E" avg_LP_2s
-                # string_ppt_LP_2s = @sprintf "%.2f" avg_LP_2s / avg_time_2s
-                # string_ratio_2s = @sprintf "%.2f" avg_time_0s / avg_time_2s
-                # string_ratio_LP_2s = @sprintf "%.2f" avg_LP_0s / avg_LP_2s
-                # string_ratio_ppt_LP_2s = @sprintf "%.2f" (avg_LP_0s / avg_time_0s) / (avg_LP_2s / avg_time_2s)
             end
 
             ##################################################
@@ -986,13 +811,6 @@ function benchmark_affine(list_instances)
                 prop_cover_3s /= count_3s
                 
                 push!(DataFrames_vector[DF_index], [time_3s, FLP_3s, ILP_3s, (FLP_0s+ILP_0s)/(FLP_3s+ILP_3s) , time_LP_3s, time_LP_3s / (FLP_3s + ILP_3s), prop_LP_3s, syms_3s, asyms_3s, dupli_syms_3s, dupli_asyms_3s, time_sv_3s, prop_sv_3s, checks_3s, detect_ratio_3s, time_cover_3s, 0, prop_cover_3s])
-                # println("Average time for $(count_3s) trials, time_3s = $(avg_time_3s), time_LP_3s = $(avg_LP_3s)")
-                # string_avg_3s = @sprintf "%.2E" avg_time_3s
-                # string_avg_LP_3s = @sprintf "%.2E" avg_LP_3s
-                # string_ppt_LP_3s = @sprintf "%.2f" avg_LP_3s / avg_time_3s
-                # string_ratio_3s = @sprintf "%.2f" avg_time_0s / avg_time_3s
-                # string_ratio_LP_3s = @sprintf "%.2f" avg_LP_0s / avg_LP_3s
-                # string_ratio_ppt_LP_3s = @sprintf "%.2f" (avg_LP_0s / avg_time_0s) / (avg_LP_3s / avg_time_3s)
             end
 
             ##################################################
@@ -1024,17 +842,6 @@ function benchmark_affine(list_instances)
                 prop_cover_4s /= count_4s
                 
                 push!(DataFrames_vector[DF_index], [time_4s, FLP_4s, ILP_4s, (FLP_0s+ILP_0s)/(FLP_4s+ILP_4s) , time_LP_4s, time_LP_4s / (FLP_4s + ILP_4s), prop_LP_4s, syms_4s, asyms_4s, dupli_syms_4s, dupli_asyms_4s, time_sv_4s, prop_sv_4s, checks_4s, detect_ratio_4s, time_cover_4s, time_cover_4s / checks_4s, prop_cover_4s])
-                # println("Average time for $(count_4s) trials, time_4s = $(avg_time_4s), time_LP_4s = $(avg_LP_4s)")
-                # string_avg_4s = @sprintf "%.2E" avg_time_4s
-                # string_avg_LP_4s = @sprintf "%.2E" avg_LP_4s
-                # string_ppt_LP_4s = @sprintf "%.2E" avg_LP_4s / avg_time_4s
-                # string_sv_4s = @sprintf "%.2E" avg_sv_4s
-                # string_cv_4s = @sprintf "%.2E" avg_cv_4s
-                # string_ppt_sv_4s = @sprintf "%.2f" avg_sv_4s / avg_time_4s
-                # string_ppt_cv_4s = @sprintf "%.2f" avg_cv_4s / avg_time_4s
-                # string_ratio_4s = @sprintf "%.2f" avg_time_0s / avg_time_4s
-                # string_ratio_LP_4s = @sprintf "%.2f" avg_LP_0s / avg_LP_4s
-                # string_ratio_ppt_LP_4s = @sprintf "%.2f" (avg_LP_0s / avg_time_0s) / (avg_LP_4s / avg_time_4s)
             end
             
             ##################################################
@@ -1066,17 +873,6 @@ function benchmark_affine(list_instances)
                 prop_cover_5s /= count_5s
                 
                 push!(DataFrames_vector[DF_index], [time_5s, FLP_5s, ILP_5s, (FLP_0s+ILP_0s)/(FLP_5s+ILP_5s) , time_LP_5s, time_LP_5s / (FLP_5s + ILP_5s), prop_LP_5s, syms_5s, asyms_5s, dupli_syms_5s, dupli_asyms_5s, time_sv_5s, prop_sv_5s, checks_5s, detect_ratio_5s, time_cover_5s, time_cover_5s / checks_5s, prop_cover_5s])
-                # println("Average time for $(count_5s) trials, time_5s = $(avg_time_5s), time_LP_5s = $(avg_LP_5s)")
-                # string_avg_5s = @sprintf "%.2E" avg_time_5s
-                # string_avg_LP_5s = @sprintf "%.2E" avg_LP_5s
-                # string_ppt_LP_5s = @sprintf "%.2E" avg_LP_5s / avg_time_5s
-                # string_sv_5s = @sprintf "%.2E" avg_sv_5s
-                # string_cv_5s = @sprintf "%.2E" avg_cv_5s
-                # string_ppt_sv_5s = @sprintf "%.2f" avg_sv_5s / avg_time_5s
-                # string_ppt_cv_5s = @sprintf "%.2f" avg_cv_5s / avg_time_5s
-                # string_ratio_5s = @sprintf "%.2f" avg_time_0s / avg_time_5s
-                # string_ratio_LP_5s = @sprintf "%.2f" avg_LP_0s / avg_LP_5s
-                # string_ratio_ppt_LP_5s = @sprintf "%.2f" (avg_LP_0s / avg_time_0s) / (avg_LP_5s / avg_time_5s)
             end
 
             ##################################################
@@ -1113,17 +909,6 @@ function benchmark_affine(list_instances)
                 prop_cover_6s /= count_6s
                 
                 push!(DataFrames_vector[DF_index], [time_6s, FLP_6s, ILP_6s, (FLP_0s+ILP_0s)/(FLP_6s+ILP_6s) , time_LP_6s, time_LP_6s / (FLP_6s + ILP_6s), prop_LP_6s, syms_6s, asyms_6s, dupli_syms_6s, dupli_asyms_6s, time_sv_6s, prop_sv_6s, checks_6s, detect_ratio_6s, time_cover_6s, time_cover_6s / checks_6s, prop_cover_6s])
-                # println("Average time for $(count_6s) trials, time_6s = $(avg_time_6s), time_LP_6s = $(avg_LP_6s)")
-                # string_avg_6s = @sprintf "%.2E" avg_time_6s
-                # string_avg_LP_6s = @sprintf "%.2E" avg_LP_6s
-                # string_ppt_LP_6s = @sprintf "%.2E" avg_LP_6s / avg_time_6s
-                # string_sv_6s = @sprintf "%.2E" avg_sv_6s
-                # string_cv_6s = @sprintf "%.2E" avg_cv_6s
-                # string_ppt_sv_6s = @sprintf "%.2f" avg_sv_6s / avg_time_6s
-                # string_ppt_cv_6s = @sprintf "%.2f" avg_cv_6s / avg_time_6s
-                # string_ratio_6s = @sprintf "%.2f" avg_time_0s / avg_time_6s
-                # string_ratio_LP_6s = @sprintf "%.2f" avg_LP_0s / avg_LP_6s
-                # string_ratio_ppt_LP_6s = @sprintf "%.2f" (avg_LP_0s / avg_time_0s) / (avg_LP_6s / avg_time_6s)
             end
 
             ##################################################
@@ -1160,17 +945,6 @@ function benchmark_affine(list_instances)
                 prop_cover_7s /= count_7s
                 
                 push!(DataFrames_vector[DF_index], [time_7s, FLP_7s, ILP_7s, 0, time_LP_7s, 0, prop_LP_7s, syms_7s, asyms_7s, dupli_syms_7s, dupli_asyms_7s, time_sv_7s, prop_sv_7s, checks_7s, detect_ratio_7s, time_cover_7s, time_cover_7s / checks_7s, prop_cover_7s])
-                # println("Average time for $(count_7s) trials, time_7s = $(avg_time_7s), time_LP_7s = $(avg_LP_7s)")
-                # string_avg_7s = @sprintf "%.2E" avg_time_7s
-                # string_avg_LP_7s = @sprintf "%.2E" avg_LP_7s
-                # string_ppt_LP_7s = @sprintf "%.2E" avg_LP_7s / avg_time_7s
-                # string_sv_7s = @sprintf "%.2E" avg_sv_7s
-                # string_cv_7s = @sprintf "%.2E" avg_cv_7s
-                # string_ppt_sv_7s = @sprintf "%.2f" avg_sv_7s / avg_time_7s
-                # string_ppt_cv_7s = @sprintf "%.2f" avg_cv_7s / avg_time_7s
-                # string_ratio_7s = @sprintf "%.2f" avg_time_0s / avg_time_7s
-                # string_ratio_LP_7s = @sprintf "%.2f" avg_LP_0s / avg_LP_7s
-                # string_ratio_ppt_LP_7s = @sprintf "%.2f" (avg_LP_0s / avg_time_0s) / (avg_LP_7s / avg_time_7s)
             end
 
         end
@@ -1243,11 +1017,9 @@ function benchmark_affine(list_instances)
 
     for i in 1:length(list_instances) # to put 3 numbers in the values instead of Float
         for j in 2:8
-            println(DataFrames_tableA1[i,j])
             DataFrames_tableA1[i,j] = conv_nb_fig(DataFrames_tableA1[i,j])
         end
     end
-    
 
     meanRCC1 = mean(DataFrames_tableA2[:,3])
     medianRCC1 = median(DataFrames_tableA2[:,3])
@@ -1270,7 +1042,7 @@ function benchmark_affine(list_instances)
     medianDC2 = median(DataFrames_tableA2[:,13])
 
     push!(DataFrames_tableA2, ["Mean", "", conv_nb_fig(meanRCC1), conv_nb_fig(meanRCC2), "", conv_nb_fig(meanPC1), conv_nb_fig(meanPC2), "", conv_nb_fig(meanPDC1), conv_nb_fig(meanPDC2), "", conv_nb_fig(meanDC1), conv_nb_fig(meanDC2)], promote=true)
-    push!(DataFrames_tableA2, ["Median", "", conv_nb_fig(medianRCC1), conv_nb_fig(medianRCC2), "", conv_nb_fig(meanPC1), conv_nb_fig(medianPC2), "", conv_nb_fig(medianPDC1), conv_nb_fig(medianPDC2), "", conv_nb_fig(medianDC1), conv_nb_fig(medianDC2)], promote=true)
+    push!(DataFrames_tableA2, ["Median", "", conv_nb_fig(medianRCC1), conv_nb_fig(medianRCC2), "", conv_nb_fig(medianPC1), conv_nb_fig(medianPC2), "", conv_nb_fig(medianPDC1), conv_nb_fig(medianPDC2), "", conv_nb_fig(medianDC1), conv_nb_fig(medianDC2)], promote=true)
 
     for i in 1:length(list_instances)
         for j in 2:13

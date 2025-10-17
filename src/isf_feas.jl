@@ -84,7 +84,7 @@ function isf_feas!(VS::Matrix, sv::Vector, rhs, info::Info, options::Options, va
     # set_optimizer_attribute(model, "Method", -1)
     # set_optimizer_attribute(model, "OutPutFlag", 0)
 
-    model = Model(options.optimizer)                        # correction JPD
+    model = Model(options.optimizer)                        
     set_silent(model)                                       # avoid printings
     
     # HiGHS
@@ -155,7 +155,7 @@ function isf_feas_HnH!(VS::Matrix, sv::Vector, info::Info, options::Options, val
     # set_optimizer_attribute(model, "Method", -1)
     # set_optimizer_attribute(model, "OutPutFlag", 0)
 
-    model = Model(options.optimizer)                        # correction JPD
+    model = Model(options.optimizer)                        
     set_silent(model)                                       # avoid printings
     
     # HiGHS
