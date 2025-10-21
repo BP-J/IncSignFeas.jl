@@ -28,7 +28,7 @@
 #
 #-----------------------------------------------------------------------
 #-----------------------------------------------------------------------
-
+### this file is unused, and contains the same as the main file IncSignFeas.jl
 # useful packages
 using Dates                             # to print the date
 using LinearAlgebra                     # null space, qr factorization, norms...
@@ -178,7 +178,7 @@ include("isf_sv_add.jl")                    # converts dual variables into stem 
 # vectors (when options.sclst == 1, some of the cell may by empty,
 # meaning that they can take the values 0 or 1);
 
-const GUROBI_ENV = Gurobi.Env()
+# const GUROBI_ENV = Gurobi.Env()
 
 """
 `info = isf(V, options)`

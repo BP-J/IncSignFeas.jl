@@ -59,7 +59,7 @@ To treat linear arrangements, input `V` (without a line of zeros for `t`) and re
 
 ## Output "result" tables
 
-In the folder test, the isf_benchmark_launches_aff.jl file is the main file on which the experiments were run. 
+In the folder test (`cd("test/")`), the isf_benchmark_launches_aff.jl file is the main file on which the experiments were run. 
 The file isf_tables.jl contains a code that produces tables very similar to those found at the end of the associated papers. 
 After using `include("isf_tables.jl")`, the following command should produce the corresponding tables. 
 ```
