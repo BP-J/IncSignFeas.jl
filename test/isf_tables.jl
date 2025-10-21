@@ -34,7 +34,7 @@
 using DelimitedFiles
 using Printf
 
-include("isf_main.jl")
+include("../src/isf_main.jl")
 
 # defines the groups of instances per types
 list_rand = ["rand_5_10", "rand_4_11", "rand_6_12", "rand_5_13", "rand_7_14", "rand_7_15", "rand_8_16", "rand_9_17"] # "rand_2_8", "rand_4_8", "rand_4_9", 

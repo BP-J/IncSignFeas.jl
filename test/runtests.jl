@@ -13,7 +13,7 @@ using HiGHS
         perm_6 = readdlm("affine_data/data_aff_perm_6.txt")
         ratio_5_7 = readdlm("affine_data/data_aff_ratio_5_7.txt")
 
-        options_7 = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, false)  # versions with linear optimization and Gurobi seemed to cause an error in the test (not the algorithm)
+        options_7 = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, false, false, 100000*eps(), 1000*eps(), false, false, false)  # versions with linear optimization and Gurobi seemed to cause an error in the test (not the algorithm)
         info_rand_12_6 = isf(rand_12_6, options_7)
         info_twod_6 = isf(twod_6, options_7)
         info_srand_2 = isf(srand_2, options_7)
