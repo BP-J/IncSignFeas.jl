@@ -28,7 +28,7 @@
 #
 #-----------------------------------------------------------------------
 #-----------------------------------------------------------------------
-### this file is unused, and contains the same as the main file IncSignFeas.jl
+
 # useful packages
 using Dates                             # to print the date
 using LinearAlgebra                     # null space, qr factorization, norms...
