@@ -108,6 +108,16 @@ export isf_somesv_H!, isf_somesv_nH!, isf_somesv_HnH!, isf_storing!, isf_storing
 
 # --------------------------------------------------
 
+
+#  JPD
+include("../test/isf_tables.jl")
+export tables_affine
+# JPD
+
+
+
+
+
 ###
 
 # This file sets up the useful tools used for the computation of the 
