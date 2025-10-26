@@ -54,10 +54,10 @@ list_crosspoly = ["crosspoly_6", "crosspoly_7", "crosspoly_8", "crosspoly_9", "c
 # list with all the instances
 list_total = [list_rand ; list_2d ; list_srand ; list_perm ; list_ratio ; list_threshold ; list_resonance ; list_demicube ; list_crosspoly]
 # list with less of the instances
-list_short = ["rand_5_10", "rand_6_12", "2d_5", "2d_6", "srand_8_20_2", "perm_5", "perm_6", "ratio_5_20_07", "ratio_5_20_09", "threshold_4", "resonance_4", "demicube_5", "crosspoly_6", "crosspoly_7"]
+list_short = ["rand_5_10", "rand_6_12", https://github.com/vepiteski/IncSignFeas.jl"2d_5", "2d_6", "srand_8_20_2", "perm_5", "perm_6", "ratio_5_20_07", "ratio_5_20_09", "threshold_4", "resonance_4", "demicube_5", "crosspoly_6", "crosspoly_7"]
 
 
-function tables_affine(list_instances)
+function tables_affines(list_instances)
 
     ### For the algorithms 6 and 7, where all the stem vectors are computed, the code "chooses" what seems best for the svsprod and wechelon options, based on heuristics.
 
