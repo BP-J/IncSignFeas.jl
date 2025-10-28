@@ -59,11 +59,12 @@ To treat linear arrangements, input `V` (without a line of zeros for `t`) and re
 
 ## Output "result" tables
 
-In the folder test (`cd("test/")`), the isf_benchmark_launches_aff.jl file is the main file on which the experiments were run. 
+In the folder test, the isf_benchmark_launches_aff.jl file is the main file on which the experiments were run. 
 The file isf_tables.jl contains a code that produces tables very similar to those found at the end of the associated papers. 
-After using `include("isf_tables.jl")`, the following command should produce the corresponding tables. 
+The following command should produce the corresponding tables (tables_A3 is large and likely won't be fully displayed at first).
 ```
-table_72, table_A1, table_A2, table_A3 = tables_affines(list_short) # only a third of the instances
-table_72, table_A1, table_A2, table_A3 = tables_affines(list_total) # quite long, all the instances
+table_72, table_A1, table_A2, table_A3 = tables_affines(list_small); # only  three  of the instances
+table_72, table_A1, table_A2, table_A3 = tables_affines(list_short); # only a third of the instances
+table_72, table_A1, table_A2, table_A3 = tables_affines(list_total); # quite long, all the instances
 ```
 Those commands are intentionally quickened in the sense an algorithm on an instance is only ran 3 times (not more which can be relevant for faster executions to reduce variance). 

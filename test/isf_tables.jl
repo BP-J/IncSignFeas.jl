@@ -613,11 +613,6 @@ function tables_affine(list_instances)
         end
     end
 
-    println("Finished")
-    println(DataFrames_table72)
-    println(DataFrames_tableA1)
-    println(DataFrames_tableA2)
-    println(DataFrames_tableA3)
     # for more detailed results
     # return DataFrames_vector, DataFrames_times, DataFrames_times_sym, DataFrames_table72, DataFrames_tableA1, DataFrames_tableA2, DataFrames_tableA3
     return DataFrames_table72, DataFrames_tableA1, DataFrames_tableA2, DataFrames_tableA3
