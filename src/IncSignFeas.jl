@@ -80,8 +80,8 @@ include("isf_first_H.jl")                   # initialization
 include("isf_first_nH.jl")                  # initialization
 include("isf_first_HnH.jl")                 # initialization
 include("isf_first_rc2018.jl")              # initialization
-include("isf_generation_affine.jl") # creating affine instances
-include("isf_generation_linear.jl") # creating linear instances
+include("isf_generation_affine.jl")         # creating affine instances, see also instances.jl
+include("isf_generation_linear.jl")         # creating linear instances, see also instances.jl
 include("isf_nod_lazy_completion.jl")       # recursive completion of the stems
 include("isf_nod_lazy.jl")                  # lazy AD5 method
 include("isf_noncolin.jl")                  # removing the duplicate vectors in the data
@@ -97,6 +97,8 @@ include("isf_somesv_HnH.jl")                # a few stem vectors
 include("isf_storing.jl")                   # when length is p, recursion stops
 include("isf_sv_add.jl")                    # converts dual variables into stem vectors
 
+include("instances.jl")                     # instances made as functions
+
 ### exports
 export isf, readdlm, Options, Info, Values, isf_get_options, isf_get_info, isf_get_values, options_from_algo, options_rationals # not the end of isf_tools.jl
 export isf_allsv_H!, isf_allsv_from_indices_H!, isf_allsv_from_indices_H_r!, isf_allsv_nH!, isf_allsv_from_indices_nH!, isf_allsv_from_indices_nH_r!, isf_allsv_HnH!, isf_allsv_from_indices_HnH!, isf_allsv_from_indices_HnH_r!
@@ -106,6 +108,15 @@ export isf_cover_stem_H, isf_cover_stem_nH, isf_cover_stem_HnH, isf_cover_stem_H
 export isf_first_H!, isf_first_nH!, isf_first_HnH!, isf_first_rc2018!, isf_rec_rc2018!, isf_rec_H!, isf_rec_nH!, isf_rec_HnH!, isf_rec_nod!, isf_rec_nod_HnH!
 export isf_somesv_H!, isf_somesv_nH!, isf_somesv_HnH!, isf_storing!, isf_storing_HnH!, isf_sv_add_H!, isf_sv_add_nH!, isf_sv_add_HnH!
 
+export gen_2d_4, gen_2d_5, gen_2d_6, gen_2d_7, gen_2d_8, gen_srand_8_20_2, gen_srand_8_20_4, gen_srand_8_20_6
+export gen_rand_2_8, gen_rand_4_8, gen_rand_4_9, gen_rand_5_10, gen_rand_4_11, gen_rand_5_13, gen_rand_6_12, gen_rand_7_14, gen_rand_7_15, gen_rand_8_16, gen_rand_9_17
+export gen_ratio_3_20_07, gen_ratio_3_20_09, gen_ratio_4_20_07, gen_ratio_4_20_09, gen_ratio_5_20_07, gen_ratio_5_20_09, gen_ratio_6_20_07, gen_ratio_6_20_09, gen_ratio_7_20_07, gen_ratio_7_20_09
+export gen_perm_4, gen_perm_5, gen_perm_6, gen_perm_7, gen_perm_8
+export gen_threshold_4, gen_threshold_5, gen_threshold_6, gen_resonance_4, gen_resonance_5, gen_resonance_6, gen_demicube_5, gen_demicube_6, gen_demicube_7
+export gen_crosspoly_6, gen_crosspoly_7, gen_crosspoly_8, gen_crosspoly_9, gen_crosspoly_10, gen_crosspoly_11, gen_crosspoly_12, gen_crosspoly_13
+
+export list_rand, list_srand, list_2d, list_ratio, list_perm, list_threshold, list_resonance, list_crosspoly, list_demicube
+export list_total, list_short, list_small
 # --------------------------------------------------
 
 
@@ -113,10 +124,6 @@ export isf_somesv_H!, isf_somesv_nH!, isf_somesv_HnH!, isf_storing!, isf_storing
 include("../test/isf_tables.jl")
 export tables_affine
 # JPD
-
-
-
-
 
 ###
 

@@ -41,20 +41,20 @@ include("../src/isf_benchmark_values.jl")          # tool used in other benchmar
 #JPD
 
 # defines the groups of instances per types
-list_rand = ["rand_5_10", "rand_4_11", "rand_6_12", "rand_5_13", "rand_7_14", "rand_7_15", "rand_8_16", "rand_9_17"] # "rand_2_8", "rand_4_8", "rand_4_9", 
-list_2d = ["2d_5", "2d_6", "2d_7", "2d_8"] # "2d_4", 
-list_srand = ["srand_8_20_2", "srand_8_20_4", "srand_8_20_6"]
-list_perm = ["perm_5", "perm_6", "perm_7", "perm_8"]
-list_ratio = ["ratio_5_20_07", "ratio_5_20_09", "ratio_6_20_07", "ratio_6_20_09", "ratio_7_20_07", "ratio_7_20_09"] # "ratio_3_20_07", "ratio_3_20_09", "ratio_4_20_07", "ratio_4_20_09", 
-list_threshold = ["threshold_4", "threshold_5", "threshold_6"]
-list_resonance = ["resonance_4", "resonance_5", "resonance_6"]
-list_demicube = ["demicube_5", "demicube_6", "demicube_7"]
-list_crosspoly = ["crosspoly_6", "crosspoly_7", "crosspoly_8", "crosspoly_9", "crosspoly_10", "crosspoly_11", "crosspoly_12", "crosspoly_13"]
+# list_rand = ["rand_5_10", "rand_4_11", "rand_6_12", "rand_5_13", "rand_7_14", "rand_7_15", "rand_8_16", "rand_9_17"] # "rand_2_8", "rand_4_8", "rand_4_9", 
+# list_2d = ["2d_5", "2d_6", "2d_7", "2d_8"] # "2d_4", 
+# list_srand = ["srand_8_20_2", "srand_8_20_4", "srand_8_20_6"]
+# list_perm = ["perm_5", "perm_6", "perm_7", "perm_8"]
+# list_ratio = ["ratio_5_20_07", "ratio_5_20_09", "ratio_6_20_07", "ratio_6_20_09", "ratio_7_20_07", "ratio_7_20_09"] # "ratio_3_20_07", "ratio_3_20_09", "ratio_4_20_07", "ratio_4_20_09", 
+# list_threshold = ["threshold_4", "threshold_5", "threshold_6"]
+# list_resonance = ["resonance_4", "resonance_5", gen_resonance_6]
+# list_demicube = ["demicube_5", "demicube_6", "demicube_7"]
+# list_crosspoly = ["crosspoly_6", "crosspoly_7", "crosspoly_8", "crosspoly_9", "crosspoly_10", "crosspoly_11", "crosspoly_12", "crosspoly_13"]
 
-# list with all the instances
-list_total = [list_rand ; list_2d ; list_srand ; list_perm ; list_ratio ; list_threshold ; list_resonance ; list_demicube ; list_crosspoly]
-# list with less of the instances
-list_short = ["rand_5_10", "rand_6_12", "2d_5", "2d_6", "srand_8_20_2", "perm_5", "perm_6", "ratio_5_20_07", "ratio_5_20_09", "threshold_4", "resonance_4", "demicube_5", "crosspoly_6", "crosspoly_7"]
+# # list with all the instances
+# list_total = [list_rand ; list_2d ; list_srand ; list_perm ; list_ratio ; list_threshold ; list_resonance ; list_demicube ; list_crosspoly]
+# # list with less of the instances
+# list_short = ["rand_5_10", "rand_6_12", "2d_5", "2d_6", "srand_8_20_2", "perm_5", "perm_6", "ratio_5_20_07", "ratio_5_20_09", "threshold_4", "resonance_4", "demicube_5", "crosspoly_6", "crosspoly_7"]
 
 
 function tables_affine(list_instances)
@@ -89,24 +89,24 @@ function tables_affine(list_instances)
     options_7s = Options(7, 0, false, HiGHS.Optimizer, false, true, 3, false, true, 100000*eps(), 1000*eps(), false, false, false)   # D-S
 
 
-    DataFrames_times = DataFrame(Problems = String[], RC = Float64[], RC_comp = Float64[], RC_ratio_comp = Float64[],
+    DataFrames_times = DataFrame(Problems = Any[], RC = Float64[], RC_comp = Float64[], RC_ratio_comp = Float64[],
                                     P = Float64[], P_ratio = Float64[], P_comp = Float64[], P_ratio_comp = Float64[], 
                                     PD = Float64[], PD_ratio = Float64[], PD_comp = Float64[], PD_ratio_comp = Float64[], 
                                     D = Float64[], D_ratio = Float64[], D_comp = Float64[], D_ratio_comp = Float64[])
 
-    DataFrames_times_sym = DataFrame(Problems = String[], RC = Float64[], RC_comp = Float64[], RC_ratio_comp = Float64[],
+    DataFrames_times_sym = DataFrame(Problems = Any[], RC = Float64[], RC_comp = Float64[], RC_ratio_comp = Float64[],
                                     P = Float64[], P_ratio = Float64[], P_comp = Float64[], P_ratio_comp = Float64[], 
                                     PD = Float64[], PD_ratio = Float64[], PD_comp = Float64[], PD_ratio_comp = Float64[], 
                                     D = Float64[], D_ratio = Float64[], D_comp = Float64[], D_ratio_comp = Float64[],
                                     RCs = Float64[], RCs_ratio = Float64[], Ps = Float64[], Ps_ratio = Float64[], 
                                     PDs = Float64[], PDs_ratio = Float64[], Ds = Float64[], Ds_ratio = Float64[])
 
-    DataFrames_tableA2 = DataFrame(Problems = String[], RC_C = Float64[], ratio_RC_RCC = Float64[], ratio_RC_RCC_ = Float64[], P_C = Float64[], ratio_P_PC = Float64[], ratio_RC_PC = Float64[], 
+    DataFrames_tableA2 = DataFrame(Problems = Any[], RC_C = Float64[], ratio_RC_RCC = Float64[], ratio_RC_RCC_ = Float64[], P_C = Float64[], ratio_P_PC = Float64[], ratio_RC_PC = Float64[], 
                                             PD_C = Float64[], ratio_PD_PDC = Float64[], ratio_RC_PDC = Float64[], D_C = Float64[], ratio_D_DC = Float64[], ratio_RC_DC = Float64[])
 
-    DataFrames_table72 = DataFrame(Problems = String[], n = Int[], p = Int[], Max_Circuits = Int[], Sym_stems = Int[], Asym_stems = Int[], Aug_stems = Int[], Aug_stems_bound = Int[], Chambers = Int[], Chambers_bound = Int[])
+    DataFrames_table72 = DataFrame(Problems = Any[], n = Int[], p = Int[], Max_Circuits = Int[], Sym_stems = Int[], Asym_stems = Int[], Aug_stems = Int[], Aug_stems_bound = Int[], Chambers = Int[], Chambers_bound = Int[])
 
-    DataFrames_tableA3 = DataFrame(Problems = String[], RC = Float64[], RC_C = Float64[], ratio_RC_RCC = Float64[], RC_S = Float64[], ratio_RC_RCS = Float64[], 
+    DataFrames_tableA3 = DataFrame(Problems = Any[], RC = Float64[], RC_C = Float64[], ratio_RC_RCC = Float64[], RC_S = Float64[], ratio_RC_RCS = Float64[], 
                                     Primal = Float64[], ratio_RC_P = Float64[], Primal_C = Float64[], ratio_RC_P_C = Float64[], Primal_S = Float64[], ratio_RC_P_S = Float64[],
                                     PD = Float64[], ratio_RC_PD = Float64[], PD_C = Float64[], ratio_RC_PD_C = Float64[], PD_S = Float64[], ratio_RC_PD_S = Float64[],
                                     Dual = Float64[], ratio_RC_D = Float64[], Dual_C = Float64[], ratio_RC_D_C = Float64[], Dual_S = Float64[], ratio_RC_D_S = Float64[])
@@ -114,24 +114,31 @@ function tables_affine(list_instances)
     for DF_index in eachindex(list_instances)
 
         name = list_instances[DF_index]
-        
-        if name[1:4] == "thre" || name[1:4] == "reso" || name[1:4] == "demi" || name[1:4] == "cros"
-            fullname = "linear_data/" * name * ".txt"
-            matrice = readdlm(fullname)
-            n, p = size(matrice)
-            matrice = [matrice ; zeros(Int,1,p)]
-        else
-            fullname = "affine_data/" * name * ".txt"
-            matrice = readdlm(fullname)
-        end
 
-        if name[1:4] == "thre" || name[1:4] == "reso" || name[1:4] == "demi" || name[1:4] == "cros" || name[1:4] == "perm"
+        if name in [list_threshold ; list_resonance ; list_crosspoly ; list_demicube]
+            (matrice, sym) = name(false)    # retrieve data, by adding zeros for the experiments below
             sym = true
         else
-            sym = false
+            (matrice, sym) = name()         # retrieve data
         end
 
-        println(name,"\n")
+        # if name[1:4] == "thre" || name[1:4] == "reso" || name[1:4] == "demi" || name[1:4] == "cros"
+        #     fullname = "linear_data/" * name * ".txt"
+        #     matrice = readdlm(fullname)
+        #     n, p = size(matrice)
+        #     matrice = [matrice ; zeros(Int,1,p)]
+        # else
+        #     fullname = "affine_data/" * name * ".txt"
+        #     matrice = readdlm(fullname)
+        # end
+
+        # if name[1:4] == "thre" || name[1:4] == "reso" || name[1:4] == "demi" || name[1:4] == "cros" || name[1:4] == "perm"
+        #     sym = true
+        # else
+        #     sym = false
+        # end
+
+        println(name,"\n") # prints a function name 
 
         nplus, p = size(matrice) # here all the matrices are with a right-hand side \tau
 
@@ -223,7 +230,7 @@ function tables_affine(list_instances)
         ##################################################
 
         if true
-            if name == "resonance_6"
+            if name == gen_resonance_6
                 count_7 = 50
                 info_7 = isf_get_info()
                 time_7, FLP_7, ILP_7, time_LP_7, avg_LP_7, prop_LP_7, syms_7, asyms_7, dupli_syms_7, dupli_asyms_7, time_sv_7, prop_sv_7, checks_7, detect_ratio_7, time_cover_7, avg_cover_7, prop_cover_7 = 10^8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -345,7 +352,7 @@ function tables_affine(list_instances)
         ##################################################
 
         if true
-            if name == "resonance_6"
+            if name == gen_resonance_6
                 count_15 = 50
                 info_15 = isf_get_info()
                 time_15, FLP_15, ILP_15, time_LP_15, avg_LP_15, prop_LP_15, syms_15, asyms_15, dupli_syms_15, dupli_asyms_15, time_sv_15, prop_sv_15, checks_15, detect_ratio_15, time_cover_15, avg_cover_15, prop_cover_15 = 10^8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -378,12 +385,7 @@ function tables_affine(list_instances)
 
         if sym
             # to get the correct data
-            if name[1:4] == "perm" 
-                fullname = "linear_data/" * "data_" * name * ".txt"
-                matrice = readdlm(fullname)
-            else
-                matrice = matrice[1:n,:]
-            end
+            matrice = matrice[1:(nplus-1),:] # remove the last line that is useless (centering for the perm and line of zeros for the others)
 
             if true
                 info_0s = isf(matrice, options_0s)
@@ -473,7 +475,7 @@ function tables_affine(list_instances)
             ##################################################
 
             if true
-                if name == "resonance_6"
+                if name == gen_resonance_6
                     count_7s = 50
                     info_7s = isf_get_info()
                     time_7s, FLP_7s, ILP_7s, time_LP_7s, avg_LP_7s, prop_LP_7s, syms_7s, asyms_7s, dupli_syms_7s, dupli_asyms_7s, time_sv_7s, prop_sv_7s, checks_7s, detect_ratio_7s, time_cover_7s, avg_cover_7s, prop_cover_7s = 10^8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -521,7 +523,7 @@ function tables_affine(list_instances)
                                         time_0s, time_0/time_0s, time_3s, time_0/time_3s, time_5s, time_0/time_5s, time_7s, time_0/time_7s])
             
             push!(DataFrames_tableA2, [name, time_8, time_0/time_8, time_0/time_8, time_11, time_3/time_11, time_0/time_11, time_13, time_5/time_13, time_0/time_13, time_15, time_7/time_15, time_0/time_15])
-            push!(DataFrames_table72, [name, nplus-1, p, binomial(p, nplus), info_7.nb_stems_sym, info_7.nb_stems_asym, info_15.nb_stems_asym, binomial(p, nplus+1), info_0.ns, isf_central_max(p, nplus-1)])
+            push!(DataFrames_table72, [name, nplus-1, p, binomial(p, nplus), info_7.nb_stems_sym, info_7.nb_stems_asym, info_15.nb_stems_asym, binomial(p, nplus), info_0.ns, isf_central_max(p, nplus-1)])
             push!(DataFrames_tableA3, [name, time_0, time_8, time_0/time_8, time_0s, time_0/time_0s, time_3, time_0/time_3, time_11, time_0/time_11, time_3s, time_0/time_3s, 
                                         time_5, time_0/time_5, time_13, time_0/time_13, time_5s, time_0/time_5s, time_7, time_0/time_7, time_15, time_0/time_15, time_7s, time_0/time_7s])
 
@@ -611,6 +613,11 @@ function tables_affine(list_instances)
         end
     end
 
+    println("Finished")
+    println(DataFrames_table72)
+    println(DataFrames_tableA1)
+    println(DataFrames_tableA2)
+    println(DataFrames_tableA3)
     # for more detailed results
     # return DataFrames_vector, DataFrames_times, DataFrames_times_sym, DataFrames_table72, DataFrames_tableA1, DataFrames_tableA2, DataFrames_tableA3
     return DataFrames_table72, DataFrames_tableA1, DataFrames_tableA2, DataFrames_tableA3
