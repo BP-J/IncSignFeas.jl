@@ -222,9 +222,15 @@ function isf(Vt::Matrix, options::Options)
     values = Values(0,1,2,3,4,5,6)    
     info = isf_get_info()
 
-    if ~(options isa Options)
+    if ~(options isa Options) 
         info.flag = values.fail_argument
         throw(DomainError(options, "options is not well initialized")) 
+        return info
+    end
+
+    if ~isempty(options.tol_hpp) || (length(options.tol_hpp) != size(Vt,2))
+        info.flag = values.fail_argument
+        throw(DomainError(options, "options.tol_hpp is incorrect"))
         return info
     end
 

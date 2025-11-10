@@ -238,7 +238,7 @@ function isf_rec_H!(V::Matrix, svec::Vector{Int}, perm::Vector{Int}, d::Vector, 
             @suppress begin
                 tick()
             end
-            d, lambda = isf_feas!(svec[1:nv]' .* V[:,T], -svTd*V[:,ivp], 0, info, options, values)
+            d, lambda = isf_feas!(svec[1:nv]' .* V[:,T], -svTd*V[:,ivp], 0, [options.tol_hpp[T] ; options.tol_hpp[ivp]], info, options, values)
             info.cput_lp += tok()
             info.flag > 0 && return
 

@@ -257,7 +257,7 @@ function isf_rec_nH!(Vt::Matrix, svec::Vector{Int}, perm::Vector{Int}, x::Vector
             @suppress begin
                 tick()
             end
-            x, lambda = isf_feas!(svec[1:nv]' .* Vt[:,T], -svTx*Vt[1:n,ivp], -svTx*Vt[n+1,ivp], info, options, values)
+            x, lambda = isf_feas!(svec[1:nv]' .* Vt[:,T], -svTx*Vt[1:n,ivp], -svTx*Vt[n+1,ivp], [options.tol_hpp[T] ; options.tol_hpp[ivp]], info, options, values)
             info.cput_lp += tok()
             info.flag > 0 && return 
 

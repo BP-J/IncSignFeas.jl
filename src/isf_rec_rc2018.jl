@@ -72,7 +72,7 @@ function isf_rec_rc2018!(V::Matrix, svec::Vector{Int}, perm::Vector{Int64}, x::V
             time_1 = tick()
         end
 
-        x, lambda = isf_feas!(svec[1:nv]' .* V[:,1:nv], -v, -rhs, info, options, values)
+        x, lambda = isf_feas!(svec[1:nv]' .* V[:,1:nv], -v, -rhs, options.tol_hpp[1:nvp], info, options, values)
         
         info.cput_lp += tok()
 
@@ -106,7 +106,7 @@ function isf_rec_rc2018!(V::Matrix, svec::Vector{Int}, perm::Vector{Int64}, x::V
             time_1 = tick()
         end
         
-        x, lambda = isf_feas!(svec[1:nv]' .* V[:,1:nv], +v, +rhs, info, options, values)
+        x, lambda = isf_feas!(svec[1:nv]' .* V[:,1:nv], +v, +rhs, options.tol_hpp[1:nvp], info, options, values)
         
         info.cput_lp += tok()
 

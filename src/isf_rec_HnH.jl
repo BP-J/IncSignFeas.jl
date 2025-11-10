@@ -273,7 +273,7 @@ function isf_rec_HnH!(Vt::Matrix, svec::Vector{Int}, perm::Vector{Int}, d::Vecto
                 @suppress begin
                     tick()
                 end
-                d, lambda = isf_feas_HnH!(svec[1:nv]' .* Vt[:,T], -svTd*Vt[:,ivp], info, options, values)
+                d, lambda = isf_feas_HnH!(svec[1:nv]' .* Vt[:,T], -svTd*Vt[:,ivp], [options.tol_hpp[T] ; options.tol_hpp[ivp]], info, options, values)
                 info.cput_lp += tok()
                 info.flag > 0 && return 
 
@@ -301,7 +301,7 @@ function isf_rec_HnH!(Vt::Matrix, svec::Vector{Int}, perm::Vector{Int}, d::Vecto
                 tick()
             end
             
-            d, lambda = isf_feas_HnH!(svec[1:nv]' .* Vt[1:n,T], -svTd*Vt[1:n,ivp], info, options, values)
+            d, lambda = isf_feas_HnH!(svec[1:nv]' .* Vt[1:n,T], -svTd*Vt[1:n,ivp], [options.tol_hpp[T] ; options.tol_hpp[ivp]], info, options, values)
             info.cput_lp += tok()
             info.flag > 0 && return 
             if any(d .!= Inf)      # system is feasible
@@ -356,7 +356,7 @@ function isf_rec_HnH!(Vt::Matrix, svec::Vector{Int}, perm::Vector{Int}, d::Vecto
                     @suppress begin
                         tick()
                     end
-                    d, lambda = isf_feas_HnH!(svec[1:nv]' .* Vt[:,T], -sign(vTd)*Vt[:,ivp], info, options, values)
+                    d, lambda = isf_feas_HnH!(svec[1:nv]' .* Vt[:,T], -sign(vTd)*Vt[:,ivp], [options.tol_hpp[T] ; options.tol_hpp[ivp]], info, options, values)
                     info.cput_lp += tok()
                     info.flag > 0 && return 
                     if any(d .!= Inf)      # system is feasible

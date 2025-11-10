@@ -35,7 +35,7 @@ preliminary check on some values of options
 """
 function isf_check(options::Options, values::Values, info::Info)
 
-    # checking options.algo
+    # checking options.algorithm
     if options.algorithm < 0 || options.algorithm > 15 || !(options.algorithm isa Int)
         info.flag = values.fail_argument
         println("\n### isf_check: options.algorithm should be a nonnegative integer <= 15\n")
@@ -86,13 +86,19 @@ function isf_check(options::Options, values::Values, info::Info)
     # checking options.tol_coordinates
     if ~(options.tol_coordinates isa Float64)
         info.flag = values.fail_argument
-        println("\n### isf_check: options.tol_coordinates is not a Float\n")
+        println("\n### isf_check: options.tol_coordinates is not a Float64\n")
     end
 
     # checking options.tol_nonzero_q
     if ~(options.tol_nonzero_q isa Float64)
         info.flag = values.fail_argument
-        println("\n### isf_check: options.tol_nonzero_q is not a Float\n")
+        println("\n### isf_check: options.tol_nonzero_q is not a Float64\n")
+    end
+
+    # checking options.tol_hpp
+    if ~(options.tol_nonzero_q isa Vector{Float64})
+        info.flag = values.fail_argument
+        println("\n### isf_check: options.tol_hpp is not a Vector{Float64}\n")
     end
 
     # checking options.wechelon

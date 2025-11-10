@@ -200,6 +200,12 @@ function isf(Vt::Matrix, options::Options)
         throw(DomainError(options, "options is not well initialized")) 
         return info
     end
+    
+    if ~isempty(options.tol_hpp) && (length(options.tol_hpp) != size(Vt,2))
+        info.flag = values.fail_argument
+        throw(DomainError(options, "options.tol_hpp is incorrect"))
+        return info
+    end
 
     options, info = isf_check(options, values, info)
     if info.flag > 1
