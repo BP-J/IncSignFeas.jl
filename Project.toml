@@ -1,7 +1,7 @@
 name = "IncSignFeas"
 uuid = "f97a4e46-c504-430b-95a5-8a62ba574f60"
 authors = ["Baptiste Plaquevent-Jourdain", "Jean-Pierre Dussault", "Jean Charles Gilbert"]
-version = "1.0.8"
+version = "1.0.9"
 
 [deps]
 Combinatorics = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
