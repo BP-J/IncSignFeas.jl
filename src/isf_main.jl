@@ -201,7 +201,11 @@ function isf(Vt::Matrix, options::Options)
         return info
     end
     
-    if ~isempty(options.tol_hpp) && (length(options.tol_hpp) != size(Vt,2))
+    if isempty(options.tol_hpp)
+        options.tol_hpp = zeros(size(Vt,2))
+    end
+
+    if length(options.tol_hpp) != size(Vt,2)
         info.flag = values.fail_argument
         throw(DomainError(options, "options.tol_hpp is incorrect"))
         return info
