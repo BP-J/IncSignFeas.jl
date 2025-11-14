@@ -55,7 +55,6 @@ function isf_feas!(VS::Matrix, sv::Vector, rhs, add_tol::Vector, info::Info, opt
         n, km = size(VS)
         b = ones(km+2)                                      # homogeneity so constraints are s_i v_i' * d >= 1
         b[km+1] = 0                                         # no right-and side for this constraint
-        b[1:km+1] += add_tol                                # additional toolerance (especially for affine case)
         b[km+2] = -1                                        # (arbitrary) bound of -1
         # LOP matrix
         A = [[VS' ; sv' ; zeros(1,n)] [zeros(km,1);1;1]]
@@ -65,7 +64,6 @@ function isf_feas!(VS::Matrix, sv::Vector, rhs, add_tol::Vector, info::Info, opt
         b       = zeros(km+2)
         b[1:km] = VS[n+1,1:km]                              # there is no homogeneity so one cannot put ones
         b[km+1] = +rhs                                      # takes into account the appropriate inequality, so later the optimal value is compared with 0
-        b[1:km+1] += add_tol                                # additional tolerance
         b[km+2] = -1                                        # (arbitrary) bound of -1
         A = [[VS[1:n,:]' ; sv' ; zeros(1,n)] ones(km+2,1)]  # the linear problem cannot be the same due to the lack of homogeneity, 't' must intervene
     end
@@ -101,13 +99,28 @@ function isf_feas!(VS::Matrix, sv::Vector, rhs, add_tol::Vector, info::Info, opt
     @objective(model, Min, c' * xt)                         # cost = last variable, the bounding variable
 
     optimize!(model)
+
+    limit = minimum(abs.(add_tol))                          # the smallest tolerance positive among the considered hyperplanes, default is zero
     
-    if objective_value(model) < 0                           # feasible system have an optimal value (-1) < 0
+    if objective_value(model) < -limit                      # feasible system have an optimal value (-1) < 0
         info.nb_feaslop += 1
         x = JuMP.value.(xt)[1:n]
-    else                                                    # if infeasible one takes the dual variables (and x stays at Inf * ones(n))
+    elseif objective_value(model) > +limit                  # if infeasible one takes the dual variables (and x stays at Inf * ones(n))
         info.nb_infeaslop += 1
         λ = dual(cons)[1:k]
+    else
+        if options.symmetry
+            additional_test = (([VS' ; sv'] * JuMP.value.(xt)[1:n] .+ objective_value(model)) .>= add_tol)
+        else
+            additional_test = (([VS' ; sv'] * JuMP.value.(xt)[1:n] - [VS[n+1,:];rhs] .+ objective_value(model)) .>= add_tol)
+        end
+        if any(additional_test) == 0                        # even with tolerance, does not work
+            info.nb_infeaslop += 1
+            λ = dual(cons)[1:k]
+        else
+            info.nb_feaslop += 1
+            x = JuMP.value.(xt)[1:n]
+        end
     end
 
     info.flag = values.success
@@ -174,21 +187,28 @@ function isf_feas_HnH!(VS::Matrix, sv::Vector, info::Info, options::Options, val
 
     optimize!(model)
 
-    # if is_solved_and_feasible(model)
-    if objective_value(model) < 0                           # feasible system, value should be -1 < 0
+    limit = minimum(abs.(add_tol))                          # the smallest tolerance positive among the considered hyperplanes, default is zero
+    
+    if objective_value(model) < -limit                      # feasible system have an optimal value (-1) < 0
         info.nb_feaslop += 1
         x = JuMP.value.(xt)[1:n]
-    else                                                    # if infeasible one takes the dual variables (and x stays at Inf * ones(n))
+    elseif objective_value(model) > +limit                  # if infeasible one takes the dual variables (and x stays at Inf * ones(n))
         info.nb_infeaslop += 1
         λ = dual(cons)[1:k]
+    else
+        if options.symmetry
+            additional_test = (([VS' ; sv'] * JuMP.value.(xt)[1:n] .+ objective_value(model)) .>= add_tol)
+        else
+            additional_test = (([VS' ; sv'] * JuMP.value.(xt)[1:n] - [VS[n+1,:];rhs] .+ objective_value(model)) .>= add_tol)
+        end
+        if any(additional_test) == 0                        # even with tolerance, does not work
+            info.nb_infeaslop += 1
+            λ = dual(cons)[1:k]
+        else
+            info.nb_feaslop += 1
+            x = JuMP.value.(xt)[1:n]
+        end
     end
-    # else
-    #     println(is_solved_and_feasible(model))
-    #     println(n)
-    #     println(VS)
-    #     println(sv)
-    #     info.flag = values.fail_solver
-    # end
 
     info.flag = values.success
 

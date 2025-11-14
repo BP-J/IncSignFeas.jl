@@ -41,10 +41,14 @@ hyperplanes i and j are identical if V[:,i] and V[:,j] (Vt[:,i] and Vt[:,j])
 are colinear in homogeneous (nonhomogeneous) instances. 
 """
 function isf_noncolin!(V::Matrix, options::Options)
-    p = size(V,2)
+    n, p = size(V)
+    if options.symmetry
+        n = n-1
+    end
 
-    norms = sqrt.(sum(V .* V, dims=1))  # norming the data
+    norms = sqrt.(sum(V[1:n,:] .* V[1:n,:], dims=1))  # norming the data
     V = V ./ norms
+    options.tol_hpp = options.tol_hpp ./ norms
 
     colsel = collect(1:p)               # initially all columns are supposed noncolinear
     colout = copy(colsel)               # pointers to colsel telling where are the columns in the future W (> 0 if same 'sense')
@@ -99,6 +103,7 @@ function isf_noncolin_r!(V::Matrix)
 
     norms = maximum(abs, V, dims=1)     # norming the data with the infinite norm (one cannot use the 2-norm since its not rational, but one could use the 1-norm)
     V = V ./ norms
+    # no need to adjust the tolerance since it does not intervene here
 
     colsel = collect(1:p)               # initially all columns are supposed noncolinear
     colout = copy(colsel)               # pointers to colsel telling where are the columns in the future W (> 0 if same 'sense')
