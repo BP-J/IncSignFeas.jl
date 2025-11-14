@@ -144,7 +144,7 @@ Gurobi has (apparently) the LP convention that the dual
 variables have the same sign as contraints: for this 
 reason, the constraints have been put in the other sense.
 """
-function isf_feas_HnH!(VS::Matrix, sv::Vector, info::Info, options::Options, values::Values)
+function isf_feas_HnH!(VS::Matrix, sv::Vector, add_tol::Vector, info::Info, options::Options, values::Values)
 
     km = size(VS, 2)
     n  = size(VS, 1)                                        # already the right dimension by definition of the isf_feas_HnH!(...) calls

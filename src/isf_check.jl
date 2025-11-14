@@ -96,7 +96,7 @@ function isf_check(options::Options, values::Values, info::Info)
     end
 
     # checking options.tol_hpp
-    if ~(options.tol_nonzero_q isa Vector{Float64})
+    if ~(options.tol_hpp isa Vector{Float64})
         info.flag = values.fail_argument
         println("\n### isf_check: options.tol_hpp is not a Vector{Float64}\n")
     end

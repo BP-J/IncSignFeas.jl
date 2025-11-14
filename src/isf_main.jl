@@ -202,7 +202,7 @@ function isf(Vt::Matrix, options::Options)
     end
     
     if isempty(options.tol_hpp)
-        options.tol_hpp = zeros(size(Vt,2))
+        options.tol_hpp = zeros(Float64, size(Vt,2))
     end
 
     if length(options.tol_hpp) != size(Vt,2)

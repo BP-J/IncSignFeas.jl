@@ -42,13 +42,13 @@ are colinear in homogeneous (nonhomogeneous) instances.
 """
 function isf_noncolin!(V::Matrix, options::Options)
     n, p = size(V)
-    if options.symmetry
+    if ~options.symmetry
         n = n-1
     end
 
     norms = sqrt.(sum(V[1:n,:] .* V[1:n,:], dims=1))  # norming the data
     V = V ./ norms
-    options.tol_hpp = options.tol_hpp ./ norms
+    options.tol_hpp = options.tol_hpp ./ norms[:]
 
     colsel = collect(1:p)               # initially all columns are supposed noncolinear
     colout = copy(colsel)               # pointers to colsel telling where are the columns in the future W (> 0 if same 'sense')
